@@ -10,7 +10,6 @@ import RecipePage from './components/pages/RecipePage';
 import { verifyUserLoggedIn, SERVER_ROOT_URL } from './utils/api';
 
 function App() {
-  const [socket, setSocket] = useState(socketIOClient(SERVER_ROOT_URL));
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -18,7 +17,6 @@ function App() {
       .then(user => {
         const newUser = { ...user };
         setUser(newUser);
-        socket.emit('setUserSocketId', { userId: newUser._id });
       })
       .catch(err => setUser({ ...user }));
   }, []);
