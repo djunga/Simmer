@@ -12,6 +12,7 @@ const passport = require('./auth/passport');
 const authRoute = require('./routes/auth');
 const userRoute = require('./routes/user');
 const recipeRoute = require('./routes/recipe');
+const mylibraryRoute = require('./routes/mylibrary');
 
 console.log(process.env.MONGODB_URI);
 // connect server to the database
@@ -51,6 +52,7 @@ app.use(passport.session());
 app.use('/api/auth', authRoute);
 app.use('/api/user', userRoute);
 app.use('/api/recipe', recipeRoute);
+app.use('/api/mylibrary', mylibraryRoute);
 
 app.use('/', express.static('build'));
 app.get('*', (req, res) => res.sendFile('index.html', { root: path.join(__dirname, 'build') }));

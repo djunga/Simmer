@@ -9,6 +9,7 @@ import SignUpPage from './components/pages/SignUpPage';
 import LoginPage from './components/pages/LoginPage';
 import VerifyAccountPage from './components/pages/VerifyAccountPage';
 import RecipePage from './components/pages/RecipePage';
+import MyLibraryPage from './components/pages/MyLibraryPage';
 import { verifyUserLoggedIn, SERVER_ROOT_URL } from './utils/api';
 
 const useStyles = makeStyles((theme) => ({
@@ -47,8 +48,8 @@ function App() {
                   <Route exact path="/signup" component={SignUpPage} />
                   <Route exact path="/login" component={LoginPage} />
                   <Route exact path="/verify/:token" component={VerifyAccountPage} />
-                  <Route exact path="/signup" component={SignUpPage} />
                   <Route exact path="/recipe/:id" component={RecipePage} />
+                  <Route exact path="/mylibrary" component={MyLibraryPage} />
                   <Route path="/*">
                     <Redirect to="/" />
                   </Route>

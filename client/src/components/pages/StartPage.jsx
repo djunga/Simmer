@@ -6,7 +6,10 @@ function StartPage(props) {
     const history = useHistory();
 
     return(
-        <div >
+        <div style={{ 
+            marginTop: '10%',
+            justifyContent: 'center'
+        }}>
                 <Button 
                     onClick={() => history.push('/signup')}
                     style={{

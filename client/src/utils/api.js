@@ -41,6 +41,10 @@ async function getRecipe(recipeId) {
     return recipe.data;
 }
 
+async function getLibrary() {
+    await axios.post(new URL(`/api/mylibrary`, SERVER_ROOT_URL).href);
+}
+
 export {
     userSignup,
     userLogin,
@@ -48,5 +52,6 @@ export {
     verifyUserLoggedIn,
     createRecipe,
     getRecipe,
+    getLibrary,
     SERVER_ROOT_URL,
 }
