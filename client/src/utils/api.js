@@ -36,7 +36,7 @@ async function verifyUserLoggedIn() {
 }
 
 async function createRecipe() {
-    const recipeId = await axios.post(new URL('/api/recipe', SERVER_ROOT_URL).href);
+    const recipeId = await axios.post(new URL('/api/editrecipe', SERVER_ROOT_URL).href);
     return recipeId.data;
 }
 

@@ -12,9 +12,6 @@ export default function RecipePage(props) {
     const recipeRef = useRef(recipe);
 
     useEffect(() => recipeRef.current = recipe);
-    useEffect(
-        () => console.log("user: " + user.isLoggedIn)
-    );
 
     const changeHandler = (e) => {
         var changedText = e.target.value;
@@ -27,12 +24,13 @@ export default function RecipePage(props) {
                 marginTop: '10%',
             }}
         >
-            <TextareaAutosize 
-                aria-label="minimum height" 
-                rowsMin={5} 
-                placeholder="Minimum 5 rows"
-                onChange={(e) => changeHandler(e)}
-            />
+            <h1>Recipe Page</h1>
+            <h3>
+            RecipePage: Load a recipe that has already been made, from the database, or for previewing a recipe that's done being edited
+            </h3>
+
+            <br/>
+            <h3>    -Navigate here when the user goes to their library and clicks a recipe, and when they are done editing a recipe</h3>
         </Box>
     );
 }

@@ -10,6 +10,7 @@ import LoginPage from './components/pages/LoginPage';
 import VerifyLoginPage from './components/pages/VerifyLoginPage';
 import VerifyAccountPage from './components/pages/VerifyAccountPage';
 import RecipePage from './components/pages/RecipePage';
+import EditRecipePage from './components/pages/EditRecipePage';
 import MyLibraryPage from './components/pages/MyLibraryPage';
 import HomePage from './components/pages/HomePage';
 import { verifyUserLoggedIn, SERVER_ROOT_URL } from './utils/api';
@@ -55,6 +56,7 @@ function App() {
                   <Route exact path="/login" component={LoginPage} />
                   <Route exact path="/login/success" component={VerifyLoginPage} />
                   <Route exact path="/verify/:token" component={VerifyAccountPage} />
+                  <Route exact path="/editrecipe/:id" component={EditRecipePage} />
                   <Route exact path="/recipe/:id" component={RecipePage} />
                   <Route exact path="/mylibrary" component={MyLibraryPage} />
                   <Route path="/*">

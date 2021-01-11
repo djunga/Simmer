@@ -31,7 +31,7 @@ export default function MyLibraryPage(props) {
 
     const newRecipe = async () => {
         createRecipe()
-        .then(recipeId => history.push(`/recipe/${recipeId}`))
+        .then(recipeId => history.push(`/editrecipe/${recipeId}`))
         .catch(err => alert(err));
     }
 

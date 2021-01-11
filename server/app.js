@@ -11,6 +11,7 @@ const passport = require('./auth/passport');
 // import routes
 const authRoute = require('./routes/auth');
 const userRoute = require('./routes/user');
+const editRecipeRoute = require('./routes/editrecipe');
 const recipeRoute = require('./routes/recipe');
 const mylibraryRoute = require('./routes/mylibrary');
 
@@ -51,6 +52,7 @@ app.use(passport.session());
 
 app.use('/api/auth', authRoute);
 app.use('/api/user', userRoute);
+app.use('/api/editrecipe', editRecipeRoute);
 app.use('/api/recipe', recipeRoute);
 app.use('/api/mylibrary', mylibraryRoute);
 
