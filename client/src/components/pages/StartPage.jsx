@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import UserContext from '../../contexts/UserContext';
 import { Button } from '@material-ui/core';
 
 function StartPage(props) {
     const history = useHistory();
+    const { setUser } = useContext(UserContext);
+    const loginAsGuest = () => setUser({ username: 'Guest', isGuest: true, isLoggedIn: true });
 
     return(
         <div style={{ 
@@ -28,6 +31,7 @@ function StartPage(props) {
                     }}
                 >Forgot Password</Button>
                 <Button
+                    onClick={() => loginAsGuest()}
                     style={{
                         backgroundColor: 'blue',
                     }}

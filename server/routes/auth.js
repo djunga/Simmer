@@ -44,6 +44,11 @@ router.post('/login', passport.authenticate('local'), async (req, res) => {
     res.send('logged in');
 });
 
+router.post('/logout', (req, res) => {
+    req.logout(); // passport method to clear jwt from user's cookie
+    res.send('logged out.');
+});
+
 router.put('/verify', async (req, res) => {
     try {
         res.send('user verified');
@@ -54,6 +59,13 @@ router.put('/verify', async (req, res) => {
 
 router.get('/login/success', async (req, res) => {
     if (!req.user) return res.status(401).send('unauthorized');
+    if(req.user) {
+        console.log('user: ' + req.user);
+    }
+    else {
+        console.log("No user");
+    }
+
     const { email, uniqueId, _id, admin, createdAt, updatedAt, verified, strategy } = req.user;
     if (!verified) {
         return res.status(400).send('user not verified.');

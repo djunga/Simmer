@@ -12,6 +12,9 @@ export default function RecipePage(props) {
     const recipeRef = useRef(recipe);
 
     useEffect(() => recipeRef.current = recipe);
+    useEffect(
+        () => console.log("user: " + user.isLoggedIn)
+    );
 
     const changeHandler = (e) => {
         var changedText = e.target.value;
@@ -19,11 +22,17 @@ export default function RecipePage(props) {
     }
 
     return(
+        <Box
+            style={{
+                marginTop: '10%',
+            }}
+        >
             <TextareaAutosize 
                 aria-label="minimum height" 
                 rowsMin={5} 
                 placeholder="Minimum 5 rows"
                 onChange={(e) => changeHandler(e)}
             />
+        </Box>
     );
 }

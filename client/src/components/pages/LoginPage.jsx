@@ -15,31 +15,49 @@ const useStyles = makeStyles((theme) => ({
 function LoginPage(props) {
     const classes = useStyles();
     const history = useHistory();
-    //const [open, setOpen] = useState(false);
-    const [open, setOpen] = React.useState(false);
 
+    const [open, setOpen] = React.useState(false);
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [loginError, setLoginError] = useState(null);
   
     const handlePassword = (e) => setPassword(e.target.value);
     const handleEmail = (e) => setEmail(e.target.value);
-
-    const [errorText, setErrorText] = useState(null);
     
+    // function closeModal() {
+    //     userLogin(email, password)
+    //     .then(() => {
+    //         setOpen(false);
+    //         createRecipe()
+    //         .then(recipeId => history.push(`/recipe/${recipeId}`))
+    //         .catch(err => alert(err));
+    //       })
+    //     .catch(err => setErrorText(err?.response?.data?.message));
+    // }
+
     function closeModal() {
-        userLogin(email, password)
-        .then(() => {
-            setOpen(false);
-            createRecipe()
-            .then(recipeId => history.push(`/recipe/${recipeId}`))
-            .catch(err => alert(err));
-          })
-        .catch(err => setErrorText(err?.response?.data?.message));
+        history.push(`/`);
+        loginAsUser();
     }
+
+    const loginAsUser = async () => {
+        try {
+          await userLogin(email, password);
+          history.push('/login/success');
+        } catch (err) {
+          if (err?.response?.status === 401) {
+            setLoginError('Incorrect email or password.');
+          } else if (err?.response?.status === 400) {
+            setLoginError('Please verify your account.');
+          } else {
+            setLoginError('Error logging in. Please try again later.')
+          }
+        }
+      }
 
     const submit = () => {
         setOpen(true);
-        setTimeout(closeModal, 2000);
+        setTimeout(closeModal, 1000);
     }
     return(
         <div style={{ backgroundColor: '#ffd5a8', height: '100vh' }}>
@@ -54,7 +72,7 @@ function LoginPage(props) {
                         width: '400px'
                     }}
                 >
-                    Log In successful! You will be redirected to a new Doc in about 2 seconds.
+                    Log In successful! You will be redirected to a new Doc in about 1 second.
                 </Box>
             </Modal>
             <h1>Log In</h1>

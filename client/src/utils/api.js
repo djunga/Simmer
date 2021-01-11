@@ -26,6 +26,10 @@ async function userLogin(email, password) {
     await axios.post(new URL('/api/auth/login', SERVER_ROOT_URL).href, { email, password });
 }
 
+async function userLogout() {
+    await axios.post(new URL('/api/auth/logout', SERVER_ROOT_URL).href);
+}
+
 async function verifyUserLoggedIn() {
     const user = await axios.get(new URL('/api/auth/login/success', SERVER_ROOT_URL).href);
     return user.data;
@@ -48,6 +52,7 @@ async function getLibrary() {
 export {
     userSignup,
     userLogin,
+    userLogout,
     userVerifyAccount,
     verifyUserLoggedIn,
     createRecipe,

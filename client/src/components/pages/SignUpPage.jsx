@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 function SignUpPage(props) {
     const classes = useStyles();
     const history = useHistory();
-    //const [open, setOpen] = useState(false);
+    
     const [open, setOpen] = React.useState(false);
 
     const [password, setPassword] = useState('');
