@@ -60,21 +60,9 @@ export default function Navbar(props) {
 
     return(
             <Box
-                // style={props.style=={} ? 
-                // {
-                //     height: '5%',
-                //     width: '100%',
-                //     padding: 5,
-                //     display: 'flex',
-                //     flexDirection: 'row',
-                //     justifyContent: 'center',
-                // } : 
-                // {
-                //     display: 'none',
-                // }}
                 style={user?.isLoggedIn ?
                 {
-                    height: '5%',
+                    height: '3%',
                     width: '100%',
                     padding: 5,
                     display: 'flex',

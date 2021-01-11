@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Box, Button, Modal, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { createRecipe, userLogin } from '../../utils/api';
+import { userLogin } from '../../utils/api';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -24,16 +24,7 @@ function LoginPage(props) {
     const handlePassword = (e) => setPassword(e.target.value);
     const handleEmail = (e) => setEmail(e.target.value);
     
-    // function closeModal() {
-    //     userLogin(email, password)
-    //     .then(() => {
-    //         setOpen(false);
-    //         createRecipe()
-    //         .then(recipeId => history.push(`/recipe/${recipeId}`))
-    //         .catch(err => alert(err));
-    //       })
-    //     .catch(err => setErrorText(err?.response?.data?.message));
-    // }
+
 
     function closeModal() {
         history.push(`/`);

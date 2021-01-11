@@ -56,7 +56,6 @@ function App() {
                   <Route exact path="/login/success" component={VerifyLoginPage} />
                   <Route exact path="/verify/:token" component={VerifyAccountPage} />
                   <Route exact path="/recipe/:id" component={RecipePage} />
-                  {/* <Route exact path="/home" component={HomePage} /> */}
                   <Route exact path="/mylibrary" component={MyLibraryPage} />
                   <Route path="/*">
                     <Redirect to="/" />

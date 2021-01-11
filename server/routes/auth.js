@@ -59,13 +59,6 @@ router.put('/verify', async (req, res) => {
 
 router.get('/login/success', async (req, res) => {
     if (!req.user) return res.status(401).send('unauthorized');
-    if(req.user) {
-        console.log('user: ' + req.user);
-    }
-    else {
-        console.log("No user");
-    }
-
     const { email, uniqueId, _id, admin, createdAt, updatedAt, verified, strategy } = req.user;
     if (!verified) {
         return res.status(400).send('user not verified.');
