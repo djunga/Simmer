@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Grid, Paper, StepContent, Stepper, Step, StepLabel, TextField, Typography } from '@material-ui/core';
+import { Box, Button, Grid, Paper, StepContent, Stepper, Step, StepLabel, TextField, Typography } from '@material-ui/core';
 import UserContext from '../../contexts/UserContext';
 
 // Slate
@@ -10,6 +10,7 @@ import { createEditor } from 'slate'
 
 // Import the Slate components and React plugin.
 import { Slate, Editable, withReact } from 'slate-react'
+import UploadPictureModal from '../modals/UploadPictureModal';
 
 const useStyles = makeStyles((theme) => ({
     parentBox: {
@@ -29,6 +30,7 @@ export default function EditRecipePage(props) {
     const history = useHistory();
     const { user } = useContext(UserContext);
     const [recipe, setRecipe] = useState(null);
+    const [uploadPictureModalOpen, setUploadPictureModalOpen] = useState(false);
     const recipeRef = useRef(recipe);
 
     useEffect(() => recipeRef.current = recipe);
@@ -46,6 +48,10 @@ export default function EditRecipePage(props) {
         <Box
             className={classes.parentBox}
         >
+            <UploadPictureModal
+                open={uploadPictureModalOpen}
+                setOpen={setUploadPictureModalOpen}
+            />
             <Grid container spacing={10} direction="column">
                 <Grid container item spacing={3} direction="column">
                     <Grid container item xs={4} spacing={3}>
@@ -69,6 +75,24 @@ export default function EditRecipePage(props) {
                                 <Editable />
                             </Slate>
                         </Paper>
+                    </Grid>
+                </Grid>
+                <Grid container item spacing={3} direction="column">
+                    <Grid container item xs={4} spacing={3}>
+                        <Typography variant="h3" align="left">Pictures</Typography>
+                    </Grid>
+                    <Grid container item xs={4} spacing={3}>
+                        <Button
+                            onClick={() => setUploadPictureModalOpen(true)}
+                            variant="outlined"
+                            style={{
+                                marginLeft: '50px',
+                                marginTop: '10px',
+                                height: '40px',
+                                width: '200px',
+                                backgroundColor: 'blue',
+                                color: 'white'
+                            }}>Upload Picture</Button>
                     </Grid>
                 </Grid>
             </Grid>

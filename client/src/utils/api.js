@@ -49,6 +49,12 @@ async function getLibrary() {
     await axios.post(new URL(`/api/mylibrary`, SERVER_ROOT_URL).href);
 }
 
+async function uploadFile(file, filename, endpoint) {
+    const formData = new FormData();
+    formData.append(filename, file);
+    await axios.put(new URL(endpoint, SERVER_ROOT_URL), formData);
+}
+
 export {
     userSignup,
     userLogin,
@@ -58,5 +64,6 @@ export {
     createRecipe,
     getRecipe,
     getLibrary,
+    uploadFile,
     SERVER_ROOT_URL,
 }
