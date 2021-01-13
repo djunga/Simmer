@@ -7,12 +7,6 @@ import UserContext from '../../contexts/UserContext';
 import { getRecipe } from '../../utils/api'; 
 import RichTextEditor from 'react-rte';
 
-// Slate
-// Import the Slate editor factory.
-import { createEditor, Transforms } from 'slate'
-
-// Import the Slate components and React plugin.
-import { Slate, Editable, withReact } from 'slate-react'
 import UploadPictureModal from '../modals/UploadPictureModal';
 
 const useStyles = makeStyles((theme) => ({
@@ -47,13 +41,14 @@ export default function EditRecipePage(props) {
         setRecipe(initialRecipe);
     }, []);
 
+    const [instructions, setInstructions] = useState(RichTextEditor.createValueFromString('richVal', 'html'));
+
     // Add the initial value when setting up our state.
-    const changeInstructionsHandler = (newValue) => {
-        //setValue(RichTextEditor.createValueFromString(newValue, 'html'));
-        setValue(newValue);
-        newValue.toString('html');
+    const changeInstructionsHandler = (value) => {
+        console.log("typeof value: " + typeof value);
+        //setInstructions(RichTextEditor.createValueFromString(value, 'html'));
+        setInstructions(value);
     }
-    const [value, setValue] = useState(RichTextEditor.createEmptyValue());
 
     const handleChangeTitle = (e) => {
         setRecipeTitleField(e.target.value);
@@ -61,6 +56,7 @@ export default function EditRecipePage(props) {
 
     const previewRecipe = async () => {
         recipe.title = recipeTitleField;
+        recipe.instructions = instructions.toString('markdown');
         setRecipe(recipe);
         history.push({
             pathname: `/recipe/${recipe._id}`,
@@ -97,9 +93,9 @@ export default function EditRecipePage(props) {
                         <Typography variant="h3" align="left">Recipe</Typography>
                     </Grid>
                     <Grid container item xs={12} spacing={3}>
-                        <Paper elevation={3} style={{height: 400, width: 400}}>
+                        <Paper elevation={3} style={{overflow: 'auto'}}>
                         <RichTextEditor
-                            value={value}
+                            value={instructions}
                             onChange={changeInstructionsHandler}
                         />
                         </Paper>

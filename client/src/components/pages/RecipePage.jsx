@@ -34,6 +34,9 @@ export default function RecipePage(props) {
                 Title: {recipe?.title}
             </h3>
 
+            Instructions: {recipe?.instructions}
+
+
         </Box>
     );
 }
