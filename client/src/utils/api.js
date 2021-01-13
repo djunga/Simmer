@@ -45,6 +45,10 @@ async function getRecipe(recipeId) {
     return recipe.data;
 }
 
+async function updateRecipe(recipe) {
+    await axios.put(new URL(`/api/recipe/${recipe._id}`, SERVER_ROOT_URL).href, { recipe });
+}
+
 async function getLibrary() {
     await axios.post(new URL(`/api/mylibrary`, SERVER_ROOT_URL).href);
 }
@@ -65,5 +69,6 @@ export {
     getRecipe,
     getLibrary,
     uploadFile,
+    updateRecipe,
     SERVER_ROOT_URL,
 }

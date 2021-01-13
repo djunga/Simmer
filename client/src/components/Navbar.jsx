@@ -32,11 +32,6 @@ export default function Navbar(props) {
     
     const { user, setUser } = useContext(UserContext);
 
-    useEffect(() => (
-        console.log("props.visible: " + props.visible)
-    )
-      , []);
-
     const goHome = () => {
         history.push('/');
     }

@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     width: '99%',
     left: '3px',
     position: 'absolute',
+    overflow: 'auto',
     border: '1px solid black'
   },
 

@@ -11,12 +11,17 @@ export default function RecipePage(props) {
     const [recipe, setRecipe] = useState(null);
     const recipeRef = useRef(recipe);
 
-    useEffect(() => recipeRef.current = recipe);
+    // useEffect(() => {
+    //         getRecipe(fetchedRecipe => setRecipe(fetchedRecipe))   // just use this when fetching from db, not editing
+    //     }
+    // );
 
-    const changeHandler = (e) => {
-        var changedText = e.target.value;
-        console.log(changedText);
-    }
+    useEffect(() => {
+        setRecipe(props.location.state.draftedRecipe);      // The recipe from the edit page
+        //console.log("Recipe title: " + recipe.title);
+    });
+
+    useEffect(() => recipeRef.current = recipe);
 
     return(
         <Box
@@ -26,11 +31,9 @@ export default function RecipePage(props) {
         >
             <h1>Recipe Page</h1>
             <h3>
-            RecipePage: Load a recipe that has already been made, from the database, or for previewing a recipe that's done being edited
+                Title: {recipe?.title}
             </h3>
 
-            <br/>
-            <h3>    -Navigate here when the user goes to their library and clicks a recipe, and when they are done editing a recipe</h3>
         </Box>
     );
 }
