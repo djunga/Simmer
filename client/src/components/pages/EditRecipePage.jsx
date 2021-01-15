@@ -7,8 +7,6 @@ import UserContext from '../../contexts/UserContext';
 import { getRecipe } from '../../utils/api'; 
 import RichTextEditor from 'react-rte';
 
-import UploadPictureModal from '../modals/UploadPictureModal';
-
 const useStyles = makeStyles((theme) => ({
     parentBox: {
         marginTop: '5%',
@@ -29,7 +27,6 @@ export default function EditRecipePage(props) {
     const [recipe, setRecipe] = useState(null);
     const [recipeTitleField, setRecipeTitleField] = useState("My Recipe");
     const [file, setFile] = useState(null);
-    const [uploadPictureModalOpen, setUploadPictureModalOpen] = useState(false);
 
     // fetch recipe from server
     useEffect(async () => {
@@ -57,6 +54,7 @@ export default function EditRecipePage(props) {
     const previewRecipe = async () => {
         recipe.title = recipeTitleField;
         recipe.instructions = instructions.toString('markdown');
+        recipe.photoURL = file;
         setRecipe(recipe);
         history.push({
             pathname: `/recipe/${recipe._id}`,
@@ -68,10 +66,6 @@ export default function EditRecipePage(props) {
         <Box
             className={classes.parentBox}
         >
-            <UploadPictureModal
-                open={uploadPictureModalOpen}
-                setOpen={setUploadPictureModalOpen}
-            />
             <Grid container spacing={10} direction="column">
                 <Grid container item spacing={3} direction="column">
                     <Grid container item xs={4} spacing={3}>
@@ -107,7 +101,17 @@ export default function EditRecipePage(props) {
                     </Grid>
                     <Grid container item xs={12} spacing={3}>
                         <Box style={{height: '60%', width: '60%', background: '#7efcc8s' }}>
-                            <DropzoneArea onChange={(file) => setFile(file[0])} filesLimit={1} />
+                            <DropzoneArea onChange={(file) => 
+                                    {
+                                        if(file[0]) {
+                                            console.log("file: ", file);
+                                            console.log('file[0]: ', file[0]);
+                                            console.log('file[0].name: ', file[0].name);
+                                            setFile(file[0].name);
+                                        }
+
+                                        
+                                    }} filesLimit={1} />
                         </Box>
 
                     </Grid>

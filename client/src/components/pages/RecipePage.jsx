@@ -18,7 +18,7 @@ export default function RecipePage(props) {
 
     useEffect(() => {
         setRecipe(props.location.state.draftedRecipe);      // The recipe from the edit page
-        //console.log("Recipe title: " + recipe.title);
+        //console.log("Recipe photoURL: " + recipe.photoURL);
     });
 
     useEffect(() => recipeRef.current = recipe);
@@ -35,8 +35,9 @@ export default function RecipePage(props) {
             </h3>
 
             Instructions: {recipe?.instructions}
-
-
+            <Box style={{ height: 500, width: 600, border: "2px solid black"}}>
+                <img src="donut.jpg" alt="Donut" height="500" width="600" float='left' />
+            </Box>
         </Box>
     );
 }
