@@ -26,7 +26,6 @@ export default function EditRecipePage(props) {
     const { user } = useContext(UserContext);
     const [recipe, setRecipe] = useState(null);
     const [recipeTitleField, setRecipeTitleField] = useState("My Recipe");
-    const [file, setFile] = useState(null);
 
     // fetch recipe from server
     useEffect(async () => {
@@ -38,12 +37,20 @@ export default function EditRecipePage(props) {
         setRecipe(initialRecipe);
     }, []);
 
+    useEffect(() => {
+        if(props.location.state?.editing) {
+            const draftedRecipe = props.location.state.draftedRecipe;
+            console.log("draftedRecipe: ", draftedRecipe);
+            setRecipeTitleField(draftedRecipe.title);
+            setInstructions(RichTextEditor.createValueFromString(draftedRecipe.instructions, 'html'));
+        }
+    }, []);
+
     const [instructions, setInstructions] = useState(RichTextEditor.createValueFromString('richVal', 'html'));
 
     // Add the initial value when setting up our state.
     const changeInstructionsHandler = (value) => {
         console.log("typeof value: " + typeof value);
-        //setInstructions(RichTextEditor.createValueFromString(value, 'html'));
         setInstructions(value);
     }
 
@@ -54,7 +61,6 @@ export default function EditRecipePage(props) {
     const previewRecipe = async () => {
         recipe.title = recipeTitleField;
         recipe.instructions = instructions.toString('markdown');
-        recipe.photoURL = file;
         setRecipe(recipe);
         history.push({
             pathname: `/recipe/${recipe._id}`,
@@ -78,6 +84,7 @@ export default function EditRecipePage(props) {
                             align="left" 
                             autoFocus={true}
                             defaultValue="My Recipe"
+                            value={recipeTitleField}
                             onChange={handleChangeTitle}
                         />
                     </Grid>
@@ -95,27 +102,7 @@ export default function EditRecipePage(props) {
                         </Paper>
                     </Grid>
                 </Grid>
-                <Grid container item spacing={3} direction="column">
-                    <Grid container item xs={12} spacing={3}>
-                        <Typography variant="h3" align="left">Pictures</Typography>
-                    </Grid>
-                    <Grid container item xs={12} spacing={3}>
-                        <Box style={{height: '60%', width: '60%', background: '#7efcc8s' }}>
-                            <DropzoneArea onChange={(file) => 
-                                    {
-                                        if(file[0]) {
-                                            console.log("file: ", file);
-                                            console.log('file[0]: ', file[0]);
-                                            console.log('file[0].name: ', file[0].name);
-                                            setFile(file[0].name);
-                                        }
 
-                                        
-                                    }} filesLimit={1} />
-                        </Box>
-
-                    </Grid>
-                </Grid>
                 <Grid item xs={12}>
                     <Button onClick={previewRecipe} style={{backgroundColor: '#7efcc8'}}>
                         Preview Recipe

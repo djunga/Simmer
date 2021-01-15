@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, TextareaAutosize } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
 import UserContext from '../../contexts/UserContext';
 import { getRecipe, } from '../../utils/api';
 
@@ -23,6 +23,13 @@ export default function RecipePage(props) {
 
     useEffect(() => recipeRef.current = recipe);
 
+    const edit = () => {
+        history.push({
+            pathname: `/editrecipe/${recipe._id}`,
+            state: { draftedRecipe: recipe, editing: true }
+        });
+    }
+
     return(
         <Box
             style={{
@@ -35,9 +42,15 @@ export default function RecipePage(props) {
             </h3>
 
             Instructions: {recipe?.instructions}
-            <Box style={{ height: 500, width: 600, border: "2px solid black"}}>
-                <img src="donut.jpg" alt="Donut" height="500" width="600" float='left' />
-            </Box>
+            <Button
+                style={{
+                    backgroundColor: 'red',
+                    border: '1px solid black'
+                }}
+                onClick={edit}
+            >
+                Edit
+            </Button>
         </Box>
     );
 }
