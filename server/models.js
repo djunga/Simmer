@@ -33,7 +33,7 @@ const recipeSchema = new Schema({
   prepTime: String,
   cookTime: String,
   ingredients: Array,   // An array for the list of ingredients. Bulleted strings
-  instructions: Array,   // An array of strings, 1 for each step. Will be numbered.
+  instructions: String,   // An array of strings, 1 for each step. Will be numbered.
   tags: Array         // Array of tags 
 });
 

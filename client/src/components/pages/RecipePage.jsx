@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Button } from '@material-ui/core';
 import UserContext from '../../contexts/UserContext';
-import { getRecipe, } from '../../utils/api';
+import { updateRecipe } from '../../utils/api';
 
 export default function RecipePage(props) {
     const history = useHistory();
@@ -18,7 +18,6 @@ export default function RecipePage(props) {
 
     useEffect(() => {
         setRecipe(props.location.state.draftedRecipe);      // The recipe from the edit page
-        //console.log("Recipe photoURL: " + recipe.photoURL);
     });
 
     useEffect(() => recipeRef.current = recipe);
@@ -28,6 +27,10 @@ export default function RecipePage(props) {
             pathname: `/editrecipe/${recipe._id}`,
             state: { draftedRecipe: recipe, editing: true }
         });
+    }
+
+    const saveRecipe = async () => {
+        updateRecipe(recipe);
     }
 
     return(
@@ -44,12 +47,21 @@ export default function RecipePage(props) {
             Instructions: {recipe?.instructions}
             <Button
                 style={{
-                    backgroundColor: 'red',
+                    backgroundColor: '#ffb45e',
                     border: '1px solid black'
                 }}
                 onClick={edit}
             >
                 Edit
+            </Button>
+            <Button
+                style={{
+                    backgroundColor: '#93d5db',
+                    border: '1px solid black'
+                }}
+                onClick={saveRecipe}
+            >
+                Save recipe
             </Button>
         </Box>
     );

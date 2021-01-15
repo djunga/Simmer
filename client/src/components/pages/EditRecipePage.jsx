@@ -2,8 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Button, Grid, Paper, TextField, Typography } from '@material-ui/core';
-import { DropzoneArea } from 'material-ui-dropzone';
-import UserContext from '../../contexts/UserContext';
 import { getRecipe } from '../../utils/api'; 
 import RichTextEditor from 'react-rte';
 
@@ -23,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
 export default function EditRecipePage(props) {
     const classes = useStyles();
     const history = useHistory();
-    const { user } = useContext(UserContext);
     const [recipe, setRecipe] = useState(null);
     const [recipeTitleField, setRecipeTitleField] = useState("My Recipe");
 
