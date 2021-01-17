@@ -1,20 +1,15 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Button } from '@material-ui/core';
+import { Box, Button, Grid } from '@material-ui/core';
 import UserContext from '../../contexts/UserContext';
 import { updateRecipe } from '../../utils/api';
+import Tag from '../Tag';
 
 export default function RecipePage(props) {
     const history = useHistory();
-    const { user } = useContext(UserContext);
     const [recipe, setRecipe] = useState(null);
     const recipeRef = useRef(recipe);
-
-    // useEffect(() => {
-    //         getRecipe(fetchedRecipe => setRecipe(fetchedRecipe))   // just use this when fetching from db, not editing
-    //     }
-    // );
 
     useEffect(() => {
         setRecipe(props.location.state.draftedRecipe);      // The recipe from the edit page
@@ -45,10 +40,20 @@ export default function RecipePage(props) {
             </h3>
 
             Instructions: {recipe?.instructions}
+            <Box 
+                style={{
+                    margin: '10%'
+                }}
+            >
+                <Grid container direction="row" xs={12} spacing={1}>
+                    {recipe?.tags.map((t) => <Tag name={t} count={0} />) }
+                </Grid>
+            </Box>
             <Button
                 style={{
                     backgroundColor: '#ffb45e',
-                    border: '1px solid black'
+                    border: '1px solid black',
+                    marginRight: '10px'
                 }}
                 onClick={edit}
             >
@@ -57,7 +62,8 @@ export default function RecipePage(props) {
             <Button
                 style={{
                     backgroundColor: '#93d5db',
-                    border: '1px solid black'
+                    border: '1px solid black',
+                    marginLeft: '10px'
                 }}
                 onClick={saveRecipe}
             >

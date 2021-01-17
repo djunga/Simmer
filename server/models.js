@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 const passportLocalMongoose = require('passport-local-mongoose');
 const AutoIncrement = require('mongoose-sequence')(mongoose);
+const mongoosePartialTextSearch = require('mongoose-partial-search');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const userSchema = new Schema({
   hash: String,
@@ -36,6 +38,9 @@ const recipeSchema = new Schema({
   instructions: String,   // An array of strings, 1 for each step. Will be numbered.
   tags: Array         // Array of tags 
 });
+
+recipeSchema.plugin(mongoosePaginate);
+recipeSchema.plugin(mongoosePartialTextSearch);
 
 module.exports = {
   User: model('User', userSchema),

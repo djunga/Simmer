@@ -1,9 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Button, Grid, Paper, TextField, Typography } from '@material-ui/core';
 import { getRecipe } from '../../utils/api'; 
 import RichTextEditor from 'react-rte';
+import ChipInput from 'material-ui-chip-input-without-variants';
 
 const useStyles = makeStyles((theme) => ({
     parentBox: {
@@ -15,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
         variant: 'h2',
         align: 'left'
     }
-  
   }));
 
 export default function EditRecipePage(props) {
@@ -40,14 +40,15 @@ export default function EditRecipePage(props) {
             console.log("draftedRecipe: ", draftedRecipe);
             setRecipeTitleField(draftedRecipe.title);
             setInstructions(RichTextEditor.createValueFromString(draftedRecipe.instructions, 'html'));
+            setTags(draftedRecipe.tags);
         }
     }, []);
 
     const [instructions, setInstructions] = useState(RichTextEditor.createValueFromString('richVal', 'html'));
+    const [tags, setTags] = useState([]);
 
     // Add the initial value when setting up our state.
     const changeInstructionsHandler = (value) => {
-        console.log("typeof value: " + typeof value);
         setInstructions(value);
     }
 
@@ -55,9 +56,14 @@ export default function EditRecipePage(props) {
         setRecipeTitleField(e.target.value);
     }
 
+    const handleChange = (chips) => {
+        setTags(chips);
+    }
+
     const previewRecipe = async () => {
         recipe.title = recipeTitleField;
         recipe.instructions = instructions.toString('markdown');
+        recipe.tags = tags;
         setRecipe(recipe);
         history.push({
             pathname: `/recipe/${recipe._id}`,
@@ -88,7 +94,7 @@ export default function EditRecipePage(props) {
                 </Grid>
                 <Grid container item spacing={3} direction="column">
                     <Grid container item xs={12} spacing={3}>
-                        <Typography variant="h3" align="left">Recipe</Typography>
+                        <Typography variant="h3" align="left">Recipe Instructions</Typography>
                     </Grid>
                     <Grid container item xs={12} spacing={3}>
                         <Paper elevation={3} style={{overflow: 'auto'}}>
@@ -99,7 +105,19 @@ export default function EditRecipePage(props) {
                         </Paper>
                     </Grid>
                 </Grid>
-
+                <Grid container item spacing={3} direction="column">
+                    <Grid container item xs={12} spacing={3}>
+                        <Typography variant="h3" align="left">Add Tags</Typography>
+                    </Grid>
+                    <Grid container item xs={12} spacing={3}>
+                        <Paper elevation={3} style={{overflow: 'auto'}}>
+                            <ChipInput
+                                defaultValue={tags}
+                                onChange={(chips) => handleChange(chips)}
+                            />
+                        </Paper>
+                    </Grid>
+                </Grid>
                 <Grid item xs={12}>
                     <Button onClick={previewRecipe} style={{backgroundColor: '#7efcc8'}}>
                         Preview Recipe
