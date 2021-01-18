@@ -12,8 +12,6 @@ router.post('/', async (req, res) => {
     if (!req.user) {
         return res.status(401).send('unauthorized');
     }
-    console.log("req.title: ", req.title);
-    console.log("req.user: ", req.user);
     const recipe = new Recipe({
         // Where will these attributes come from? See line 29 in the loginpage file in the accompal project
         // To find out.
@@ -24,8 +22,8 @@ router.post('/', async (req, res) => {
         prepTime: req.prepTime,
         cookTime: req.cookTime,
         // skip photo
-        ingredient: [],
-        instructions: "",
+        ingredients: [],
+        instructions: req.instructions,
         tags: []
     });
     

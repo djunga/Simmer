@@ -37,7 +37,6 @@ export default function EditRecipePage(props) {
     useEffect(() => {
         if(props.location.state?.editing) {
             const draftedRecipe = props.location.state.draftedRecipe;
-            console.log("draftedRecipe: ", draftedRecipe);
             setRecipeTitleField(draftedRecipe.title);
             setInstructions(RichTextEditor.createValueFromString(draftedRecipe.instructions, 'html'));
             setTags(draftedRecipe.tags);

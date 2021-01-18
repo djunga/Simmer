@@ -1,8 +1,23 @@
 const express = require('express');
 const axios = require('axios');
-const { Recipe, User } = require('../models');
+const { Recipe } = require('../models');
 
 const router = express.Router();
+const PAGINATION_COUNT = 10;
+
+router.get('/search', async (req, res) => {
+    const { query, page } = req.query;
+    console.log("query: ", query);
+    console.log("page: ", page);
+    if (!query) return res.status(400).send('missing search query');
+
+    const results = await Recipe.paginate({ ...Recipe.searchBuilder(query) }, { lean: true, limit: PAGINATION_COUNT, page: page ? page : 1 });    res.send({
+        results: results.docs,
+        currentPage: results.page,
+        totalPages: results.totalPages,
+        totalResults: results.totalDocs,
+    });
+});
 
 // RETRIEVE RECIPE
 router.get('/:id', async (req, res) => {
@@ -22,7 +37,5 @@ router.put('/:id', async (req, res) => {
     await Recipe.findOneAndUpdate({  _id: recipe._id }, recipe);
     return res.send(recipe);
 });
-
-
 
 module.exports = router;

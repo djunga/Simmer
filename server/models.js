@@ -29,7 +29,10 @@ userSchema.plugin(AutoIncrement, { inc_field: 'uniqueId' });
 
 const recipeSchema = new Schema({
   owner: String, // the writer of the recipe
-  title: String,
+  title: {
+    type: String,
+    searchable: true
+  },
   dateCreated: String, 
   servings: Number,
   prepTime: String,

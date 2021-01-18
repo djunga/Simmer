@@ -5,7 +5,6 @@ export default function Tag(props) {
     const { name, count } = props;
     return(
         <Box
-            flex
             style={{
                 height: 15,
                 backgroundColor: '#a3eeff',

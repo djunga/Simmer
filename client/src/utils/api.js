@@ -49,6 +49,13 @@ async function updateRecipe(recipe) {
     await axios.put(new URL(`/api/recipe/${recipe._id}`, SERVER_ROOT_URL).href, { recipe });
 }
 
+async function recipeSearch(searchQuery, page) {
+    console.log("searchQuery: ", searchQuery);
+    console.log("page: ", page);
+    const recipes = await axios.get(new URL('/api/recipe/search', SERVER_ROOT_URL).href, { params: { query: searchQuery, page } });
+    return recipes.data;
+}
+
 async function getLibrary() {
     await axios.post(new URL(`/api/mylibrary`, SERVER_ROOT_URL).href);
 }
@@ -70,5 +77,6 @@ export {
     getLibrary,
     uploadFile,
     updateRecipe,
+    recipeSearch,
     SERVER_ROOT_URL,
 }

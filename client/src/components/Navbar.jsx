@@ -9,6 +9,8 @@ import {
 } from '@material-ui/icons';
 import UserContext from '../contexts/UserContext';
 import { getLibrary, userLogout } from '../utils/api';
+import SearchBar from './SearchBar';
+import SearchBarDropdown from './SearchBarDropdown';
 
 const useStyles = makeStyles((theme) => ({
     tab: {
@@ -94,6 +96,11 @@ export default function Navbar(props) {
                 >
                     logout
                 </Button>
+                <SearchBar 
+                    style={{
+                        marginLeft: '10px',
+                    }} 
+                />
             </Box>
     );
 }
