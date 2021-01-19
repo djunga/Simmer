@@ -15,7 +15,7 @@ export default function Tag(props) {
                 border: '1px solid #5b5fcf'
             }}
         >
-            {name}, {count}
+            {name}
         </Box>
     );
 }

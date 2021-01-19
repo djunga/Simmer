@@ -28,7 +28,10 @@ userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
 userSchema.plugin(AutoIncrement, { inc_field: 'uniqueId' });
 
 const recipeSchema = new Schema({
-  owner: String, // the writer of the recipe
+  owner: {
+    type: String,
+    searchable: false
+  }, // the writer of the recipe
   title: {
     type: String,
     searchable: true
@@ -38,8 +41,14 @@ const recipeSchema = new Schema({
   prepTime: String,
   cookTime: String,
   ingredients: Array,   // An array for the list of ingredients. Bulleted strings
-  instructions: String,   // An array of strings, 1 for each step. Will be numbered.
-  tags: Array         // Array of tags 
+  instructions: {
+    type: String,
+    searchable: false
+  },   // An array of strings, 1 for each step. Will be numbered.
+  tags: {
+    type: Array,
+    searchable: true
+  }         // Array of tags 
 });
 
 recipeSchema.plugin(mongoosePaginate);

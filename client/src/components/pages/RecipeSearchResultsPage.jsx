@@ -53,7 +53,7 @@ export default function RecipeSearchResultsPage(props) {
                 >
                     <Grid container style={{ height: '10vh' }}>
                         <Grid item xs={2} align="center" onClick={() => history.push(`/recipe/${recipe._id}`)} style={{cursor: 'pointer'}}>
-                            {recipe.name}
+                            {recipe.title}
                         </Grid>
                         <Grid item xs={1} />
                     </Grid>
@@ -68,49 +68,6 @@ export default function RecipeSearchResultsPage(props) {
             <br />
             <Typography style={{ marginLeft: '100px', textAlign: "left" }} variant="h4">Search results for "{new URLSearchParams(props.location.search).get('query')}" ({totalResults}):</Typography>
             <Grid container >
-                <Box style={{
-                    maxHeight: '60vh',
-                    overflow: 'auto',
-                    display: 'inline-flex',
-                    flexDirection: 'row',
-                    backgroundColor: blueGrey[900],
-                    marginTop: '2%',
-                    marginLeft: '10%',
-                    marginRight: '10%',
-                    paddingLeft: '20px',
-                    paddingTop: '20px',
-                    paddingBottom: '20px',
-                    width: '90%',
-                    height: '30%'
-                }} boxShadow={3} borderRadius={12}>
-                    <Box style={{
-                        backgroundColor: blueGrey[900],
-                        width: "33%",
-                        textAlign: "center",
-                        boxShadow: "3",
-                        borderRadius: 6
-                    }}>
-                        Name
-            </Box>
-                    <Box style={{
-                        backgroundColor: blueGrey[900],
-                        width: "33%",
-                        textAlign: "center",
-                        boxShadow: 3,
-                        borderRadius: 6
-                    }}>
-                        Collaborators
-            </Box>
-                    <Box style={{
-                        backgroundColor: blueGrey[900],
-                        width: "34%",
-                        textAlign: "center",
-                        boxShadow: "3",
-                        borderRadius: 6
-                    }}>
-                        Favorites
-            </Box>
-                </Box>
                 <Box style={{
                     marginLeft: "10%",
                     marginTop: '2%',

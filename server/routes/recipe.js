@@ -7,8 +7,6 @@ const PAGINATION_COUNT = 10;
 
 router.get('/search', async (req, res) => {
     const { query, page } = req.query;
-    console.log("query: ", query);
-    console.log("page: ", page);
     if (!query) return res.status(400).send('missing search query');
 
     const results = await Recipe.paginate({ ...Recipe.searchBuilder(query) }, { lean: true, limit: PAGINATION_COUNT, page: page ? page : 1 });    res.send({

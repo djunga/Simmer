@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import { Box, Button, Grid } from '@material-ui/core';
-import UserContext from '../../contexts/UserContext';
 import { updateRecipe } from '../../utils/api';
 import Tag from '../Tag';
 

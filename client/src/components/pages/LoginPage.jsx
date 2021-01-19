@@ -69,13 +69,11 @@ function LoginPage(props) {
             <h1>Log In</h1>
             <TextField
                 label="Email"
-                defaultValue=""
                 onChange={handleEmail}
                 value={email}
             />
             <TextField
                 label="Password"
-                defaultValue=""
                 helperText="Enter your password."
                 onChange={handlePassword}
                 value={password}
