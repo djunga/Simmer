@@ -61,13 +61,11 @@ function SignUpPage(props) {
             <h1>Sign Up</h1>
             <TextField
                 label="Email"
-                defaultValue=""
                 onChange={handleEmail}
                 value={email}
             />
             <TextField
                 label="Password"
-                defaultValue=""
                 helperText="Some restrictions for the password"
                 onChange={handlePassword}
                 value={password}

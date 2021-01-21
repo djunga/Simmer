@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Add as AddIcon } from '@material-ui/icons';
 import { Box, Fab } from '@material-ui/core';
-import { createRecipe } from '../../utils/api';
+import UserContext from '../../contexts/UserContext';
+import { createRecipe, getLibrary } from '../../utils/api';
 
 const useStyles = makeStyles((theme) => ({
     parentBox: {
@@ -28,6 +29,24 @@ const useStyles = makeStyles((theme) => ({
 export default function MyLibraryPage(props) {
     const history = useHistory();
     const classes = useStyles();
+
+    const { user, setUser } = useContext(UserContext);
+    const id = user._id;
+
+    const [createdRecipes, setCreatedRecipes] = useState([]);
+
+    // fetch the user's recipes from the db
+    useEffect(() => {
+        if(user.email) {
+            getLibrary(user.email)
+            .then(
+                recipes => {
+                    setCreatedRecipes(recipes);
+                }
+        ).catch(err => console.log('error getting library'));
+        }
+
+      }, [user.email]);
 
     const newRecipe = async () => {
         createRecipe()

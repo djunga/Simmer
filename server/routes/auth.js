@@ -66,6 +66,7 @@ router.get('/login/success', async (req, res) => {
 
     res.json({
         _id,
+        email,
         uniqueId, // convert number to base36 to get alphanumeric id
         admin,
         createdAt,

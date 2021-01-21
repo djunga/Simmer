@@ -56,8 +56,10 @@ async function recipeSearch(searchQuery, page) {
     return recipes.data;
 }
 
-async function getLibrary() {
-    await axios.post(new URL(`/api/mylibrary`, SERVER_ROOT_URL).href);
+async function getLibrary(email) {
+    const recipes = await axios.get(new URL(`/api/mylibrary`, SERVER_ROOT_URL).href, { params: { email } });
+    console.log("recipes.data: ", recipes.data);
+    return recipes.data;
 }
 
 async function uploadFile(file, filename, endpoint) {
@@ -65,6 +67,12 @@ async function uploadFile(file, filename, endpoint) {
     formData.append(filename, file);
     await axios.put(new URL(endpoint, SERVER_ROOT_URL), formData);
 }
+
+// async function getCreatedRecipes(userId) {
+//     const recipes = await axios.get(new URL(`/api/recipe/createdRecipes`, SERVER_ROOT_URL).href, { params: { userId } });
+//     return recipes.data;
+// }
+
 
 export {
     userSignup,
@@ -78,5 +86,6 @@ export {
     uploadFile,
     updateRecipe,
     recipeSearch,
+    //getCreatedRecipes,
     SERVER_ROOT_URL,
 }

@@ -1,5 +1,4 @@
 const express = require('express');
-const axios = require('axios');
 const { Recipe } = require('../models');
 
 const router = express.Router();
@@ -16,6 +15,14 @@ router.get('/search', async (req, res) => {
         totalResults: results.totalDocs,
     });
 });
+
+// // get recipes owned by a certain user
+// router.get('/createdRecipes', async (req, res) => {
+//     const { userId } = req.query;
+//     let recipes = await Recipe.find({ 'owner': Types.ObjectId(userId)}).lean();
+
+//     res.send(recipes);
+// });
 
 // RETRIEVE RECIPE
 router.get('/:id', async (req, res) => {

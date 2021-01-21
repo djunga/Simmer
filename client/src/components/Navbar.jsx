@@ -45,14 +45,9 @@ export default function Navbar(props) {
         history.push('/');
         setUser({ isLoggedIn: false });
       }
-    //   {user?.isLoggedIn ?
-    //     <Button style={{ margin: 'auto' }} onClick={() => logout()} variant="contained">Logout</Button>
-    //     : undefined
-    //   }
+
     const goToLibrary = () => {
-        getLibrary()
-        .then(history.push('/mylibrary'))
-        .catch(err => console.log('error getting library'));
+        history.push('/mylibrary');
     }
 
     return(
