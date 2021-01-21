@@ -61,7 +61,8 @@ export default function EditRecipePage(props) {
 
     const previewRecipe = async () => {
         recipe.title = recipeTitleField;
-        recipe.instructions = instructions.toString('markdown');
+        var i = instructions.toString('markdown');
+        recipe.instructions = i.substring(0, i.length-1);
         recipe.tags = tags;
         setRecipe(recipe);
         history.push({
