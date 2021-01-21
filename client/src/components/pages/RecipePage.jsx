@@ -43,7 +43,7 @@ export default function RecipePage(props) {
                     margin: '10%'
                 }}
             >
-                <Grid container direction="row" xs={12} spacing={1}>
+                <Grid container direction="row" spacing={1}>
                     {recipe?.tags.map((t) => <Tag name={t} count={0} />) }
                 </Grid>
             </Box>

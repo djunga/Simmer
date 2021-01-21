@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Button, Grid, Paper, TextField, Typography } from '@material-ui/core';
+//import { HelpIcon as HelpOutlineIcon } from '@material-ui/icons';
 import { getRecipe } from '../../utils/api'; 
 import RichTextEditor from 'react-rte';
 import ChipInput from 'material-ui-chip-input-without-variants';
@@ -23,6 +24,35 @@ export default function EditRecipePage(props) {
     const history = useHistory();
     const [recipe, setRecipe] = useState(null);
     const [recipeTitleField, setRecipeTitleField] = useState("My Recipe");
+    const [instructions, setInstructions] = useState(RichTextEditor.createValueFromString('Start writing your recipe here!', 'html'));
+    const [tags, setTags] = useState([]);
+    const [titleError, setTitleError] = useState(false);
+    const [titleErrorText, setTitleErrorText] = useState("");
+    const [instructionsError, setInstructionsError] = useState(false);
+    const [instructionsErrorText, setInstructionsErrorText] = useState("");
+
+    /**
+     * The toolbar in the rte, for instructions.
+    */
+    const toolbarConfig = {
+        // Optionally specify the groups to display (displayed in the order listed).
+        display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS',  'BLOCK_TYPE_DROPDOWN', 'HISTORY_BUTTONS'],
+        INLINE_STYLE_BUTTONS: [
+          {label: 'Bold', style: 'BOLD', className: 'custom-css-class'},
+          {label: 'Italic', style: 'ITALIC'},
+          {label: 'Underline', style: 'UNDERLINE'}
+        ],
+        BLOCK_TYPE_DROPDOWN: [
+          {label: 'Normal', style: 'unstyled'},
+          {label: 'Heading Large', style: 'header-one'},
+          {label: 'Heading Medium', style: 'header-two'},
+          {label: 'Heading Small', style: 'header-three'}
+        ],
+        BLOCK_TYPE_BUTTONS: [
+          {label: 'UL', style: 'unordered-list-item'},
+          {label: 'OL', style: 'ordered-list-item'}
+        ]
+      };
 
     // fetch recipe from server
     useEffect(async () => {
@@ -43,19 +73,42 @@ export default function EditRecipePage(props) {
         }
     }, []);
 
-    const [instructions, setInstructions] = useState(RichTextEditor.createValueFromString('richVal', 'html'));
-    const [tags, setTags] = useState([]);
 
     // Add the initial value when setting up our state.
     const changeInstructionsHandler = (value) => {
         setInstructions(value);
+        const i = value.toString('markdown');
+        console.log("instructions: ", i);
+        console.log("Length: " + i.length);
+        if(i.length < 20 || i.length > 5000) {
+            console.log("error true");
+            setInstructionsError(true);
+            setInstructionsErrorText("* The Instructions must be between 20 and 5000 characters.");
+        }
+        else {
+            console.log("error false");
+            setInstructionsError(false);
+            setInstructionsErrorText("");
+        }
     }
 
     const handleChangeTitle = (e) => {
-        setRecipeTitleField(e.target.value);
+        const inputValue = e.target.value;
+        setRecipeTitleField(inputValue);
+        console.log("Length: " + inputValue.length);
+        if(inputValue.length < 5 || inputValue.length > 100) {
+            console.log("error true");
+            setTitleError(true);
+            setTitleErrorText("* The title must be between 5 and 100 characters.");
+        }
+        else {
+            console.log("error false");
+            setTitleError(false);
+            setTitleErrorText("");
+        }
     }
 
-    const handleChange = (chips) => {
+    const handleChipsChange = (chips) => {
         setTags(chips);
     }
 
@@ -80,29 +133,45 @@ export default function EditRecipePage(props) {
                     <Grid container item xs={4} spacing={3}>
                         <Typography variant="h3" align="left">Title</Typography>
                     </Grid>
-                    <Grid container item xs={4} spacing={3}>
+                    <Grid container item xs={6} spacing={1}>
                         <TextField 
+                            error={titleError}
                             variant="outlined" 
                             color="primary" 
                             align="left" 
+                            fullWidth={true}
+                            helperText={titleErrorText}
+                            label="Title of Recipe"
                             autoFocus={true}
                             defaultValue="My Recipe"
                             value={recipeTitleField}
                             onChange={handleChangeTitle}
                         />
+                        
                     </Grid>
                 </Grid>
                 <Grid container item spacing={3} direction="column">
                     <Grid container item xs={12} spacing={3}>
                         <Typography variant="h3" align="left">Recipe Instructions</Typography>
                     </Grid>
-                    <Grid container item xs={12} spacing={3}>
-                        <Paper elevation={3} style={{overflow: 'auto'}}>
-                        <RichTextEditor
-                            value={instructions}
-                            onChange={changeInstructionsHandler}
-                        />
+                    <Grid container item xs={12} spacing={1}>
+                        <Paper elevation={3} style={{ width: '100%', overflow: 'auto'}}>
+                            <RichTextEditor
+
+                                toolbarConfig={toolbarConfig}
+                                value={instructions}
+                                onChange={changeInstructionsHandler}
+                            />
                         </Paper>
+                        <Box
+                            style={{
+                                color: 'red',
+                                height: "10%",
+                                width: "100%",
+                            }}
+                        >
+                           {instructionsErrorText}
+                        </Box>
                     </Grid>
                 </Grid>
                 <Grid container item spacing={3} direction="column">
@@ -113,7 +182,7 @@ export default function EditRecipePage(props) {
                         <Paper elevation={3} style={{overflow: 'auto'}}>
                             <ChipInput
                                 defaultValue={tags}
-                                onChange={(chips) => handleChange(chips)}
+                                onChange={(chips) => handleChipsChange(chips)}
                             />
                         </Paper>
                     </Grid>

@@ -7,12 +7,12 @@ try {
     SERVER_ROOT_URL = new URL('http://localhost:3000/').href;
 }
 
-let CLIENT_ROOT_URL;
-try {
-    CLIENT_ROOT_URL = new URL(process.env.REACT_APP_CLIENT_ROOT_URL).href;
-} catch (err) {
-    CLIENT_ROOT_URL = new URL('http://localhost:3000/').href;
-}
+// let CLIENT_ROOT_URL;
+// try {
+//     CLIENT_ROOT_URL = new URL(process.env.REACT_APP_CLIENT_ROOT_URL).href;
+// } catch (err) {
+//     CLIENT_ROOT_URL = new URL('http://localhost:3000/').href;
+// }
 
 async function userSignup(email, password) {
     await axios.post(new URL('/api/auth/signup', SERVER_ROOT_URL).href, { email, password });

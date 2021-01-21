@@ -31,8 +31,6 @@ export default function MyLibraryPage(props) {
     const classes = useStyles();
 
     const { user, setUser } = useContext(UserContext);
-    const id = user._id;
-
     const [createdRecipes, setCreatedRecipes] = useState([]);
 
     // fetch the user's recipes from the db
