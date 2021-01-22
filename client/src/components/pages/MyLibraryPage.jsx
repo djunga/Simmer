@@ -2,9 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Add as AddIcon } from '@material-ui/icons';
-import { Box, Fab } from '@material-ui/core';
+import { Box, Fab, Grid } from '@material-ui/core';
 import UserContext from '../../contexts/UserContext';
 import { createRecipe, getLibrary } from '../../utils/api';
+import LibraryCard from '../LibraryCard';
 
 const useStyles = makeStyles((theme) => ({
     parentBox: {
@@ -56,6 +57,22 @@ export default function MyLibraryPage(props) {
         <Box
             className={classes.parentBox}
         >   my library
+            <Box
+                style={{
+                    padding: '1%'
+                }}
+            >
+                <Grid container direction="column" spacing={1}>
+                    {createdRecipes?.map((r) => 
+                        <Grid container item direction="column" spacing={1}>
+                            <LibraryCard recipe={r}>
+
+                            </LibraryCard>
+                        </Grid>
+                        ) 
+                    }
+                </Grid>
+            </Box>
             <Fab
                 className={classes.fab}
                 onClick={newRecipe}
