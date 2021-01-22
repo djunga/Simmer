@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
         cookTime: req.cookTime,
         // skip photo
         ingredients: [],
-        instructions: req.instructions,
+        instructions: [],
         tags: []
     });
     

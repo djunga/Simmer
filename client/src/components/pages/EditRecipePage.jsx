@@ -23,7 +23,7 @@ export default function EditRecipePage(props) {
     const history = useHistory();
     const [recipe, setRecipe] = useState(null);
     const [recipeTitleField, setRecipeTitleField] = useState("My Recipe");
-    const [instructions, setInstructions] = useState(RichTextEditor.createValueFromString('Start writing your recipe here!', 'html'));
+    const [instructions, setInstructions] = useState(RichTextEditor.createValueFromString('Click the bullet points in the toolbar above and start listing your instructions here!', 'html'));
     const [ingredients, setIngredients] = useState(RichTextEditor.createValueFromString('Click the bullet points in the toolbar above and start listing your ingredients here!', 'html'));
     const [tags, setTags] = useState([]);
     const [titleError, setTitleError] = useState(false);
@@ -40,21 +40,10 @@ export default function EditRecipePage(props) {
     */
     const toolbarInstructions = {
         // Optionally specify the groups to display (displayed in the order listed).
-        display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS',  'BLOCK_TYPE_DROPDOWN', 'HISTORY_BUTTONS'],
-        INLINE_STYLE_BUTTONS: [
-          {label: 'Bold', style: 'BOLD', className: 'custom-css-class'},
-          {label: 'Italic', style: 'ITALIC'},
-          {label: 'Underline', style: 'UNDERLINE'}
-        ],
-        BLOCK_TYPE_DROPDOWN: [
-          {label: 'Normal', style: 'unstyled'},
-          {label: 'Heading Large', style: 'header-one'},
-          {label: 'Heading Medium', style: 'header-two'},
-          {label: 'Heading Small', style: 'header-three'}
-        ],
+        display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS',  'HISTORY_BUTTONS'],
+
         BLOCK_TYPE_BUTTONS: [
           {label: 'UL', style: 'unordered-list-item'},
-          {label: 'OL', style: 'ordered-list-item'}
         ]
       };
 
@@ -111,6 +100,8 @@ export default function EditRecipePage(props) {
     const changeInstructionsHandler = (value) => {
         setInstructions(value);
         const i = value.toString('markdown');
+        var arr = i.split("-");
+        console.log(arr);
         if(i.length < 20 || i.length > 5000) {
             setInstructionsError(true);
             setInstructionsErrorText("* The Instructions must be between 20 and 5000 characters.");
@@ -153,11 +144,13 @@ export default function EditRecipePage(props) {
         recipe.title = recipeTitleField;
         recipe.prepTime = prepTimeField;
         recipe.servings = servingsField;
+
         var a = formatRTEArray(ingredients.toString('markdown').split("-"));
-        console.log(a);
         recipe.ingredients = a;
-        var i = instructions.toString('markdown');
-        recipe.instructions = i.substring(0, i.length-1);
+
+        var b = formatRTEArray(ingredients.toString('markdown').split("."));
+        recipe.instructions = b;
+
         recipe.tags = tags;
         setRecipe(recipe);
         history.push({
