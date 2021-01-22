@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Box, Button, Grid } from '@material-ui/core';
 import { updateRecipe } from '../../utils/api';
 import Tag from '../Tag';
+import Font, { Text } from 'react-font'
 
 export default function RecipePage(props) {
     const history = useHistory();
@@ -37,7 +38,11 @@ export default function RecipePage(props) {
                 Title: {recipe?.title}
             </h3>
 
+            Ingredients: {recipe?.ingredients}
             Instructions: {recipe?.instructions}
+            <Text family='Yusei Magic' weight={700} style={{ fontSize: 18, margin: 0 }} onLoad={() => console.log('loaded Monoton')}>
+                Super simple :)
+            </Text>
             <Box 
                 style={{
                     margin: '10%'

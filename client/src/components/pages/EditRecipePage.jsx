@@ -25,16 +25,19 @@ export default function EditRecipePage(props) {
     const [recipe, setRecipe] = useState(null);
     const [recipeTitleField, setRecipeTitleField] = useState("My Recipe");
     const [instructions, setInstructions] = useState(RichTextEditor.createValueFromString('Start writing your recipe here!', 'html'));
+    const [ingredients, setIngredients] = useState(RichTextEditor.createValueFromString('Click the bullet points in the toolbar above and start listing your ingredients here!', 'html'));
     const [tags, setTags] = useState([]);
     const [titleError, setTitleError] = useState(false);
     const [titleErrorText, setTitleErrorText] = useState("");
     const [instructionsError, setInstructionsError] = useState(false);
     const [instructionsErrorText, setInstructionsErrorText] = useState("");
+    const [ingredientsError, setIngredientsError] = useState(false);
+    const [ingredientsErrorText, setIngredientsErrorText] = useState("");
 
     /**
      * The toolbar in the rte, for instructions.
     */
-    const toolbarConfig = {
+    const toolbarInstructions = {
         // Optionally specify the groups to display (displayed in the order listed).
         display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS',  'BLOCK_TYPE_DROPDOWN', 'HISTORY_BUTTONS'],
         INLINE_STYLE_BUTTONS: [
@@ -51,6 +54,18 @@ export default function EditRecipePage(props) {
         BLOCK_TYPE_BUTTONS: [
           {label: 'UL', style: 'unordered-list-item'},
           {label: 'OL', style: 'ordered-list-item'}
+        ]
+      };
+
+          /**
+     * The toolbar in the rte, for ingredients.
+    */
+      const toolbarIngredients = {
+        // Optionally specify the groups to display (displayed in the order listed).
+        display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS',  'HISTORY_BUTTONS'],
+
+        BLOCK_TYPE_BUTTONS: [
+          {label: 'UL', style: 'unordered-list-item'},
         ]
       };
 
@@ -73,6 +88,22 @@ export default function EditRecipePage(props) {
         }
     }, []);
 
+    // The rte adds a newline to each ingredient. This method removes it.
+    const formatRTEArray = (arr) => {
+        var a = arr;
+        for (var i=0; i< a.length; i++) {
+            var ingredient = a[i].toString('markdown');
+            a[i] = ingredient.substring(0, ingredient.length-1);
+        }
+        return a;
+    }
+    // Add the initial value when setting up our state.
+    const changeIngredientsHandler = (value) => {
+        setIngredients(value);
+        const i = value.toString('markdown');
+        var arr = i.split("-");
+        console.log(arr);
+    }
 
     // Add the initial value when setting up our state.
     const changeInstructionsHandler = (value) => {
@@ -114,6 +145,9 @@ export default function EditRecipePage(props) {
 
     const previewRecipe = async () => {
         recipe.title = recipeTitleField;
+        var a = formatRTEArray(ingredients.toString('markdown').split("-"));
+        console.log(a);
+        recipe.ingredients = a;
         var i = instructions.toString('markdown');
         recipe.instructions = i.substring(0, i.length-1);
         recipe.tags = tags;
@@ -152,13 +186,35 @@ export default function EditRecipePage(props) {
                 </Grid>
                 <Grid container item spacing={3} direction="column">
                     <Grid container item xs={12} spacing={3}>
+                        <Typography variant="h3" align="left">Ingredients</Typography>
+                    </Grid>
+                    <Grid container item xs={12} spacing={1}>
+                        <Paper elevation={3} style={{ width: '100%', overflow: 'auto'}}>
+                            <RichTextEditor
+                                toolbarConfig={toolbarIngredients}
+                                value={ingredients}
+                                onChange={changeIngredientsHandler}
+                            />
+                        </Paper>
+                        <Box
+                            style={{
+                                color: 'red',
+                                height: "10%",
+                                width: "100%",
+                            }}
+                        >
+                           {ingredientsErrorText}
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Grid container item spacing={3} direction="column">
+                    <Grid container item xs={12} spacing={3}>
                         <Typography variant="h3" align="left">Recipe Instructions</Typography>
                     </Grid>
                     <Grid container item xs={12} spacing={1}>
                         <Paper elevation={3} style={{ width: '100%', overflow: 'auto'}}>
                             <RichTextEditor
-
-                                toolbarConfig={toolbarConfig}
+                                toolbarConfig={toolbarInstructions}
                                 value={instructions}
                                 onChange={changeInstructionsHandler}
                             />
