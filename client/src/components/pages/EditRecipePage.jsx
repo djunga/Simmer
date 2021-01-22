@@ -83,6 +83,7 @@ export default function EditRecipePage(props) {
         if(props.location.state?.editing) {
             const draftedRecipe = props.location.state.draftedRecipe;
             setRecipeTitleField(draftedRecipe.title);
+            setIngredients(RichTextEditor.createValueFromString(draftedRecipe.ingredients, 'html'));
             setInstructions(RichTextEditor.createValueFromString(draftedRecipe.instructions, 'html'));
             setTags(draftedRecipe.tags);
         }
@@ -109,15 +110,11 @@ export default function EditRecipePage(props) {
     const changeInstructionsHandler = (value) => {
         setInstructions(value);
         const i = value.toString('markdown');
-        console.log("instructions: ", i);
-        console.log("Length: " + i.length);
         if(i.length < 20 || i.length > 5000) {
-            console.log("error true");
             setInstructionsError(true);
             setInstructionsErrorText("* The Instructions must be between 20 and 5000 characters.");
         }
         else {
-            console.log("error false");
             setInstructionsError(false);
             setInstructionsErrorText("");
         }
@@ -128,12 +125,10 @@ export default function EditRecipePage(props) {
         setRecipeTitleField(inputValue);
         console.log("Length: " + inputValue.length);
         if(inputValue.length < 5 || inputValue.length > 100) {
-            console.log("error true");
             setTitleError(true);
             setTitleErrorText("* The title must be between 5 and 100 characters.");
         }
         else {
-            console.log("error false");
             setTitleError(false);
             setTitleErrorText("");
         }

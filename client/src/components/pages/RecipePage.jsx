@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Box, Button, Grid } from '@material-ui/core';
+import { Box, Button, Divider, Grid } from '@material-ui/core';
 import { updateRecipe } from '../../utils/api';
 import Tag from '../Tag';
 import Font, { Text } from 'react-font'
@@ -12,6 +12,8 @@ export default function RecipePage(props) {
 
     useEffect(() => {
         setRecipe(props.location.state.draftedRecipe);      // The recipe from the edit page
+        const ing = recipe?.ingredients;
+        console.log(ing);
     });
 
     useEffect(() => recipeRef.current = recipe);
@@ -30,24 +32,48 @@ export default function RecipePage(props) {
     return(
         <Box
             style={{
-                marginTop: '10%',
+                margin: '10%',
             }}
         >
-            <h1>Recipe Page</h1>
-            <h3>
-                Title: {recipe?.title}
-            </h3>
-
-            Ingredients: {recipe?.ingredients}
-            Instructions: {recipe?.instructions}
-            <Text family='Yusei Magic' weight={700} style={{ fontSize: 18, margin: 0 }} onLoad={() => console.log('loaded Monoton')}>
-                Super simple :)
-            </Text>
+            <Grid container direction="column" align="left" spacing={1}>
+                <Grid item xs={12}>
+                    <Text family="Yusei Magic" weight={700} style={{ fontSize: 30, margin: 0 }} >
+                        {recipe?.title}
+                    </Text>
+                </Grid>
+                <Grid container item xs={12} direction="column" spacing={1} style={{marginLeft: '1%' }}>
+                    <Grid item xs={12}>
+                        <Text family="Yusei Magic" weight={500} style={{ fontSize: 24 }} >
+                            Ingredients
+                        </Text>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Text family="Roboto" weight={400} style={{ fontSize: 14, marginLeft: '3%' }} >
+                            {recipe?.ingredients.map((i) => <li>{i}</li>) }
+                        </Text>
+                    </Grid>
+                </Grid>
+                <Grid container item xs={12} direction="column" spacing={1} style={{marginLeft: '1%' }}>
+                    <Grid item xs={12}>
+                        <Text family="Yusei Magic" weight={500} style={{ fontSize: 24 }} >
+                            Instructions
+                        </Text>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Text family="Roboto" weight={400} style={{ fontSize: 14, marginLeft: '3%' }} >
+                            {recipe?.instructions}
+                        </Text>
+                    </Grid>
+                </Grid>
+            </Grid>
             <Box 
                 style={{
                     margin: '10%'
                 }}
             >
+                <Text family="Yusei Magic" weight={500} style={{ fontSize: 24 }} >
+                    {recipe?.tags ? "Tags": "No tags"}
+                </Text>
                 <Grid container direction="row" spacing={1}>
                     {recipe?.tags.map((t) => <Tag name={t} count={0} />) }
                 </Grid>
