@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             border: '2px solid black',
         }
-
     },
   
   }));

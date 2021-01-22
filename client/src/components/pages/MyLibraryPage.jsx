@@ -64,7 +64,7 @@ export default function MyLibraryPage(props) {
             >
                 <Grid container direction="column" spacing={1}>
                     {createdRecipes?.map((r) => 
-                        <Grid container item direction="column" spacing={1}>
+                        <Grid container item direction="column" xs={12} alignItems="center" spacing={1}>
                             <LibraryCard recipe={r}>
 
                             </LibraryCard>
