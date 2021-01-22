@@ -16,14 +16,6 @@ router.get('/search', async (req, res) => {
     });
 });
 
-// // get recipes owned by a certain user
-// router.get('/createdRecipes', async (req, res) => {
-//     const { userId } = req.query;
-//     let recipes = await Recipe.find({ 'owner': Types.ObjectId(userId)}).lean();
-
-//     res.send(recipes);
-// });
-
 // RETRIEVE RECIPE
 router.get('/:id', async (req, res) => {
     try {

@@ -58,7 +58,6 @@ async function recipeSearch(searchQuery, page) {
 
 async function getLibrary(email) {
     const recipes = await axios.get(new URL(`/api/mylibrary`, SERVER_ROOT_URL).href, { params: { email } });
-    console.log("recipes.data: ", recipes.data);
     return recipes.data;
 }
 

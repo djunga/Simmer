@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Button, Grid, Paper, TextField, Typography } from '@material-ui/core';
-//import { HelpIcon as HelpOutlineIcon } from '@material-ui/icons';
 import { getRecipe } from '../../utils/api'; 
 import RichTextEditor from 'react-rte';
 import ChipInput from 'material-ui-chip-input-without-variants';
@@ -33,6 +32,8 @@ export default function EditRecipePage(props) {
     const [instructionsErrorText, setInstructionsErrorText] = useState("");
     const [ingredientsError, setIngredientsError] = useState(false);
     const [ingredientsErrorText, setIngredientsErrorText] = useState("");
+    const [prepTimeField, setPrepTimeField] = useState("");
+    const [servingsField, setServingsField] = useState(""); 
 
     /**
      * The toolbar in the rte, for instructions.
@@ -134,12 +135,24 @@ export default function EditRecipePage(props) {
         }
     }
 
+    const handleChangePrepTime = (e) => {
+        const inputValue = e.target.value;
+        setPrepTimeField(inputValue);
+    }
+
+    const handleChangeServings = (e) => {
+        const inputValue = e.target.value;
+        setServingsField(inputValue);
+    }
+    
     const handleChipsChange = (chips) => {
         setTags(chips);
     }
 
     const previewRecipe = async () => {
         recipe.title = recipeTitleField;
+        recipe.prepTime = prepTimeField;
+        recipe.servings = servingsField;
         var a = formatRTEArray(ingredients.toString('markdown').split("-"));
         console.log(a);
         recipe.ingredients = a;
@@ -177,6 +190,37 @@ export default function EditRecipePage(props) {
                             onChange={handleChangeTitle}
                         />
                         
+                    </Grid>
+                </Grid>
+                <Grid container item spacing={3} direction="column">
+                    <Grid container item xs={12} spacing={5}>
+                        <Typography variant="h3" align="left">Prep Time + Servings</Typography>
+                    </Grid>
+                    <Grid container item xs={12} direction="column" spacing={1}>
+                        <Grid item xs={6}>
+                            <TextField 
+                                variant="outlined" 
+                                color="primary" 
+                                align="left" 
+                                fullWidth={true}
+                                helperText="How long does it take to make this recipe?"
+                                label="Prep Time"
+                                value={prepTimeField}
+                                onChange={handleChangePrepTime}
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField 
+                                variant="outlined" 
+                                color="primary" 
+                                align="left" 
+                                fullWidth={true}
+                                helperText="How many servings does this recipe make?"
+                                label="# of Servings"
+                                value={servingsField}
+                                onChange={handleChangeServings}
+                            />
+                        </Grid>
                     </Grid>
                 </Grid>
                 <Grid container item spacing={3} direction="column">
