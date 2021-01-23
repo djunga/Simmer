@@ -1,9 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Grid, Paper, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import { LocalDining as LocalDiningIcon, AccessAlarm as AccessAlarmIcon } from '@material-ui/icons';
 import { Pagination } from '@material-ui/lab';
 import { blueGrey } from '@material-ui/core/colors';
 import { recipeSearch } from '../../utils/api';
+import { Text } from 'react-font';
+
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        backgroundColor: 'white',
+        color: 'black',
+        padding: '3%',
+        margin: '3%',
+        minWidth: '70%',
+        border: '4px solid orange',
+        '&:hover': {
+            border: '4px solid red',
+            cursor: 'pointer'
+        }
+    },
+    box: {
+        border: '4px dashed black',
+        padding: '3%',
+        minWidth: '40%'
+    },
+  }));
 
 export default function RecipeSearchResultsPage(props) {
 
@@ -13,6 +36,7 @@ export default function RecipeSearchResultsPage(props) {
     const [currentPage, setCurrentPage] = useState(1);
 
     const history = useHistory();
+    const classes = useStyles();
 
     useEffect(() => {
         recipeSearch(new URLSearchParams(props.location.search).get('query'), currentPage)
@@ -36,37 +60,60 @@ export default function RecipeSearchResultsPage(props) {
         setCurrentPage(pageNumber);
     };
 
+    const viewRecipe = (recipe) => {
+        history.push({
+            pathname: `/recipe/${recipe._id}`,
+            state: { draftedRecipe: recipe }
+        });
+    }
+
     const RecipeRows = ({ recipes }) => (
         <>
-
             {recipes.map(recipe => (
-                <Box
-                    style={{
-                        margin: "5px",
-                        padding: "10px",
-                        backgroundColor: blueGrey[700],
-                        display: "flex",
-                        flexDirection: "row",
-                        borderRadius: 6,
-                        fontSize: '1em',
-                    }}
-                >
-                    <Grid container style={{ height: '10vh' }}>
-                        <Grid item xs={2} align="center" onClick={() => history.push(`/recipe/${recipe._id}`)} style={{cursor: 'pointer'}}>
-                            {recipe.title}
+            <Paper
+                elevation={8}
+                className={classes.paper}
+                onClick={() => viewRecipe(recipe)}
+            >
+                <Grid container direction="row" spacing={1}>
+                    <Grid container item direction="column" xs={6}>
+                        <Grid item xs={6}>
+                            <Text family="Yusei Magic" style={{ fontSize: 24 }} >
+                                {recipe?.title}
+                            </Text>
                         </Grid>
-                        <Grid item xs={1} />
                     </Grid>
-                </Box>
+                    <Grid item xs={6}>
+                        <Box alignItems="center" className={classes.box}>
+                            <Grid container direction="column" spacing={2}>
+                                <Grid container item direction="row" spacing={1} xs={12} style={{ display: 'inline'}}>
+                                    <Grid item xs={12}>
+                                        <AccessAlarmIcon style={{marginRight: '10%'}} />
+                                        Prep Time: {recipe?.prepTime}
+                                    </Grid>
+                                </Grid>    
+                                <Grid container item direction="row" spacing={1} xs={12}>
+                                    <Grid item xs={12}>
+                                        <LocalDiningIcon style={{marginRight: '10%'}}  />
+                                        Number of Servings: {recipe?.servings}
+                                    </Grid>
+                                </Grid>                  
+                            </Grid>
+                        </Box>
+                    </Grid>
+                </Grid>
+            </Paper>
             ))}
         </>
     );
     return (
-        <div style={{ color: 'white', left: 0 }}>
+        <div style={{ left: 0 }}>
             <br />
             <br />
             <br />
-            <Typography style={{ marginLeft: '100px', textAlign: "left" }} variant="h4">Search results for "{new URLSearchParams(props.location.search).get('query')}" ({totalResults}):</Typography>
+            <Text family="Yusei Magic" style={{ fontSize: 30 }} >
+                Search results for "{new URLSearchParams(props.location.search).get('query')}" ({totalResults}):
+            </Text>
             <Grid container >
                 <Box style={{
                     marginLeft: "10%",
@@ -74,9 +121,7 @@ export default function RecipeSearchResultsPage(props) {
                     marginRight: '10%',
                     marginBottom: '10%',
                     padding: '10px',
-                    borderRadius: 6,
-                    backgroundColor: blueGrey[900],
-                    width: '90%',
+                    width: '99%',
                 }}>
                     <RecipeRows recipes={recipes} />
                     {totalPages > 1 ?
