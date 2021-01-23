@@ -43,7 +43,7 @@ export default function HomeCard(props) {
             onClick={viewRecipe}
         >
             <Grid container direction="row" spacing={1}>
-                <Grid container item direction="column">
+                <Grid container item direction="column" xs={6}>
                     <Grid item xs={6}>
                         <Text family="Yusei Magic" style={{ fontSize: 24 }} >
                             {recipe?.title}

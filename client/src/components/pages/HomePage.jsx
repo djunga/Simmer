@@ -29,7 +29,7 @@ export default function HomePage(props) {
     useEffect(() => {
         getRandomRecipes(3).then(recipes => {
             setRecipesToday(recipes);
-      }, []);
+      }, [recipesToday]);
     });
 
     return(

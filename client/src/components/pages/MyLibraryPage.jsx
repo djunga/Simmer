@@ -49,7 +49,7 @@ export default function MyLibraryPage(props) {
         ).catch(err => console.log('error getting library'));
         }
 
-      }, [user.email]);
+      }, [user.email, createdRecipes]);
 
     const newRecipe = async () => {
         createRecipe()
