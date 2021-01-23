@@ -40,13 +40,13 @@ export default function HomePage(props) {
                 }}
             >
                 <Box className={classes.headingBox}>
-                    <Text family="Courgette" weight={700} style={{ fontSize: 40, margin: 0 }} >
+                    <Text family="Courgette" style={{ fontSize: 40, margin: 0 }} >
                         Recipes of the Day
                     </Text>
                 </Box>
                 <Grid container direction="column" spacing={3}>
-                    {recipesToday?.map((r) => 
-                        <Grid container item direction="column" xs={12} alignItems="center" spacing={1}>
+                    {recipesToday?.map((r, index) => 
+                        <Grid container item direction="column" xs={12} alignItems="center" spacing={1} key={index}>
                             <HomeCard recipe={r} />
                         </Grid>
                         )

@@ -49,7 +49,7 @@ export default function RecipePage(props) {
                             minWidth: '40%'
                         }}
                     >
-                        <Grid container direction="column" spacing={2} xs={12}>
+                        <Grid container direction="column" spacing={2}>
                             <Grid container item direction="row" spacing={1} xs={12} style={{ display: 'inline'}}>
                                 <Grid item xs={12}>
                                     <AccessAlarmIcon style={{marginRight: '10%'}} />
@@ -73,7 +73,7 @@ export default function RecipePage(props) {
                     </Grid>
                     <Grid item xs={12}>
                         <Text family="Roboto" weight={400} style={{ fontSize: 14, marginLeft: '3%' }} >
-                            {recipe?.ingredients.map((i) => <li>{i}</li>) }
+                            {recipe?.ingredients.map((i, index) => <li key={index}>{i}</li>) }
                         </Text>
                     </Grid>
                 </Grid>
@@ -97,7 +97,7 @@ export default function RecipePage(props) {
                     </Grid>
                 <Grid item xs={12}>
                     <Grid container direction="row" spacing={1}>
-                        {recipe?.tags.map((t) => <Tag name={t} count={0} />) }
+                        {recipe?.tags.map((t, index) => <Tag name={t} count={0} key={index}/>) }
                     </Grid>
                 </Grid>
             </Grid>

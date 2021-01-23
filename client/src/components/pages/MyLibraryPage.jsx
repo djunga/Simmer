@@ -67,13 +67,13 @@ export default function MyLibraryPage(props) {
                 }}
             >
                 <Box className={classes.headingBox}>
-                    <Text family="Courgette" weight={700} style={{ fontSize: 40, margin: 0 }} >
+                    <Text family="Courgette" style={{ fontSize: 40, margin: 0 }} >
                         My Recipe Library
                     </Text>
                 </Box>
                 <Grid container direction="column" spacing={3}>
-                    {createdRecipes?.map((r) => 
-                        <Grid container item direction="column" xs={12} alignItems="center" spacing={1}>
+                    {createdRecipes?.map((r, index) => 
+                        <Grid container item direction="column" xs={12} alignItems="center" spacing={1} key={index}>
                             <LibraryCard recipe={r} />
                         </Grid>
                         ) 

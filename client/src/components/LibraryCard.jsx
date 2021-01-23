@@ -58,10 +58,10 @@ export default function LibraryCard(props) {
             elevation={8}
             className={classes.paper}
         >
-            <Grid container direction="row" xs={12} spacing={1}>
+            <Grid container direction="row" spacing={1}>
                 <Grid container item direction="column" xs={6}>
-                    <Grid item xs={6} spacing={1}>
-                        <Text family="Yusei Magic" weight={700} style={{ fontSize: 24 }} >
+                    <Grid item xs={6}>
+                        <Text family="Yusei Magic" style={{ fontSize: 24 }} >
                             {recipe?.title}
                         </Text>
                     </Grid>
@@ -74,9 +74,9 @@ export default function LibraryCard(props) {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={6} spacing={1}>
+                <Grid item xs={6}>
                     <Box alignItems="center" className={classes.box}>
-                        <Grid container direction="column" spacing={2} xs={12}>
+                        <Grid container direction="column" spacing={2} >
                             <Grid container item direction="row" spacing={1} xs={12} style={{ display: 'inline'}}>
                                 <Grid item xs={12}>
                                     <AccessAlarmIcon style={{marginRight: '10%'}} />
