@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Button, Grid, Paper, TextField, Typography } from '@material-ui/core';
@@ -84,6 +84,8 @@ export default function EditRecipePage(props) {
         if(props.location.state?.editing) {
             const draftedRecipe = props.location.state.draftedRecipe;
             setRecipeTitleField(draftedRecipe.title);
+            setPrepTimeField(draftedRecipe.prepTime);
+            setServingsField(draftedRecipe.servings);
             setIngredients(RichTextEditor.createValueFromString(draftedRecipe.ingredients, 'html'));
             setInstructions(RichTextEditor.createValueFromString(draftedRecipe.instructions, 'html'));
             setTags(draftedRecipe.tags);
@@ -154,7 +156,6 @@ export default function EditRecipePage(props) {
         recipe.prepTime = prepTimeField;
         recipe.servings = servingsField;
         var a = formatRTEArray(ingredients.toString('markdown').split("-"));
-        console.log(a);
         recipe.ingredients = a;
         var i = instructions.toString('markdown');
         recipe.instructions = i.substring(0, i.length-1);
@@ -215,6 +216,7 @@ export default function EditRecipePage(props) {
                                 color="primary" 
                                 align="left" 
                                 fullWidth={true}
+                                type="number"
                                 helperText="How many servings does this recipe make?"
                                 label="# of Servings"
                                 value={servingsField}

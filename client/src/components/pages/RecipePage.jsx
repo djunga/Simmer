@@ -13,8 +13,6 @@ export default function RecipePage(props) {
 
     useEffect(() => {
         setRecipe(props.location.state.draftedRecipe);      // The recipe from the edit page
-        const ing = recipe?.ingredients;
-        console.log(ing);
     });
 
     useEffect(() => recipeRef.current = recipe);
