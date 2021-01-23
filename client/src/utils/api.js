@@ -67,11 +67,10 @@ async function uploadFile(file, filename, endpoint) {
     await axios.put(new URL(endpoint, SERVER_ROOT_URL), formData);
 }
 
-// async function getCreatedRecipes(userId) {
-//     const recipes = await axios.get(new URL(`/api/recipe/createdRecipes`, SERVER_ROOT_URL).href, { params: { userId } });
-//     return recipes.data;
-// }
-
+async function getRandomRecipes(count) {
+    const recipes = await axios.get(new URL('/api/recipe/random', SERVER_ROOT_URL).href, { params: { count } });
+    return recipes.data;
+}
 
 export {
     userSignup,
@@ -85,6 +84,6 @@ export {
     uploadFile,
     updateRecipe,
     recipeSearch,
-    //getCreatedRecipes,
+    getRandomRecipes,
     SERVER_ROOT_URL,
 }

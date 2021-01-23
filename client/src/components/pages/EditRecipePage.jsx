@@ -33,7 +33,7 @@ export default function EditRecipePage(props) {
     const [ingredientsError, setIngredientsError] = useState(false);
     const [ingredientsErrorText, setIngredientsErrorText] = useState("");
     const [prepTimeField, setPrepTimeField] = useState("");
-    const [servingsField, setServingsField] = useState(""); 
+    const [servingsField, setServingsField] = useState(0); 
 
     /**
      * The toolbar in the rte, for instructions.

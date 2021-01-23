@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
         border: '4px solid orange',
         '&:hover': {
             border: '4px solid red',
+            cursor: 'pointer'
         }
     },
     box: {
@@ -21,31 +22,13 @@ const useStyles = makeStyles((theme) => ({
         padding: '3%',
         minWidth: '40%'
     },
-    editButton: {
-        backgroundColor: '#3498eb',
-        color: 'white',
-        width: 60,
-        height: 30
-    },
-    viewButton: {
-        backgroundColor: '#eb5334',
-        color: 'white',
-        width: 60,
-        height: 30
-    },
   }));
 
-export default function LibraryCard(props) {
+export default function HomeCard(props) {
     const classes = useStyles();
     const { recipe } = props;
     const history = useHistory();
 
-    const editRecipe = () => {
-        history.push({
-            pathname: `/editrecipe/${recipe._id}`,
-            state: { draftedRecipe: recipe, editing: true }
-        });
-    }
     const viewRecipe = () => {
         history.push({
             pathname: `/recipe/${recipe._id}`,
@@ -57,6 +40,7 @@ export default function LibraryCard(props) {
         <Paper
             elevation={8}
             className={classes.paper}
+            onClick={viewRecipe}
         >
             <Grid container direction="row" xs={12} spacing={1}>
                 <Grid container item direction="column" xs={6}>
@@ -64,14 +48,6 @@ export default function LibraryCard(props) {
                         <Text family="Yusei Magic" weight={700} style={{ fontSize: 24 }} >
                             {recipe?.title}
                         </Text>
-                    </Grid>
-                    <Grid container item direction="row" xs={6} spacing={1}>
-                        <Grid item xs={6} >
-                            <Button className={classes.editButton} onClick={editRecipe}>edit</Button>
-                        </Grid>
-                        <Grid item xs={6} >
-                            <Button className={classes.viewButton} onClick={viewRecipe}>view</Button>
-                        </Grid>
                     </Grid>
                 </Grid>
                 <Grid item xs={6} spacing={1}>
@@ -93,7 +69,6 @@ export default function LibraryCard(props) {
                     </Box>
                 </Grid>
             </Grid>
-            
         </Paper>
     );
 }

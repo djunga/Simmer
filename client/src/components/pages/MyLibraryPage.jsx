@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Add as AddIcon } from '@material-ui/icons';
 import { Box, Fab, Grid } from '@material-ui/core';
+import { Text } from 'react-font';
 import UserContext from '../../contexts/UserContext';
 import { createRecipe, getLibrary } from '../../utils/api';
 import LibraryCard from '../LibraryCard';
@@ -12,7 +13,10 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '1%',
         height: '93%',
         width: '100%',
-        border: '3px solid green',
+        //border: '3px solid green',
+    },
+    headingBox: {
+        margin: '3%'
     },
     fab: {
         position: 'absolute',
@@ -56,18 +60,21 @@ export default function MyLibraryPage(props) {
     return(
         <Box
             className={classes.parentBox}
-        >   my library
+        >
             <Box
                 style={{
                     padding: '1%'
                 }}
             >
-                <Grid container direction="column" spacing={1}>
+                <Box className={classes.headingBox}>
+                    <Text family="Courgette" weight={700} style={{ fontSize: 40, margin: 0 }} >
+                        My Recipe Library
+                    </Text>
+                </Box>
+                <Grid container direction="column" spacing={3}>
                     {createdRecipes?.map((r) => 
                         <Grid container item direction="column" xs={12} alignItems="center" spacing={1}>
-                            <LibraryCard recipe={r}>
-
-                            </LibraryCard>
+                            <LibraryCard recipe={r} />
                         </Grid>
                         ) 
                     }
