@@ -40,16 +40,27 @@ export default function MyLibraryPage(props) {
 
     // fetch the user's recipes from the db
     useEffect(() => {
-        if(user.email) {
-            getLibrary(user.email)
-            .then(
-                recipes => {
-                    setCreatedRecipes(recipes);
-                }
-        ).catch(err => console.log('error getting library'));
-        }
+        // if(user.email) {
+        //     getLibrary(user.email)
+        //     .then(
+        //         recipes => 
+        //             setCreatedRecipes(recipes)
+                
+        // ).catch(err => console.log('error getting library'));
+        // }
 
-      }, [user.email, createdRecipes]);
+        if(user.email) {
+            let isMounted = true; // note this flag denote mount status
+            getLibrary(user.email)
+            .then( recipes => {
+                if (isMounted) {
+                    setCreatedRecipes(recipes);
+                    return () => { isMounted = false }; // use effect cleanup to set flag false, if unmounted
+                }
+            }
+            ).catch(err => console.log('error getting library'));
+        }
+    }, [user.email, createdRecipes]);
 
     const newRecipe = async () => {
         createRecipe()
