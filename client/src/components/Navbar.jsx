@@ -8,9 +8,8 @@ import {
     AccountBoxRounded as AccountBoxRoundedIcon,
 } from '@material-ui/icons';
 import UserContext from '../contexts/UserContext';
-import { getLibrary, userLogout } from '../utils/api';
+import { userLogout } from '../utils/api';
 import SearchBar from './SearchBar';
-import SearchBarDropdown from './SearchBarDropdown';
 
 const useStyles = makeStyles((theme) => ({
     tab: {
@@ -49,6 +48,10 @@ export default function Navbar(props) {
         history.push('/mylibrary');
     }
 
+    const goToMyAccount = () => {
+        history.push('/myaccount');
+    }
+
     return(
             <Box
                 style={user?.isLoggedIn ?
@@ -79,6 +82,7 @@ export default function Navbar(props) {
                 </Box>
                 <Box
                     className={classes.tab}
+                    onClick={goToMyAccount}
                 >
                     <AccountBoxRoundedIcon />
                 </Box>

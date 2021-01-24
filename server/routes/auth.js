@@ -75,4 +75,26 @@ router.get('/login/success', async (req, res) => {
     });
 });
 
+/**
+ * Resets a password via the change password button on a logged in user's account page.
+ * See other route for resetting password through forgot password/email workflow.
+ */
+router.put('/changePassword', async (req, res) => {
+    if (!req.user || !req.body.currentPassword || !req.body.newPassword) return res.status(401).send('unauthorized');
+    
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) return res.status(404).send('user not found');
+        try {
+            await user.changePassword(req.body.currentPassword, req.body.newPassword);
+            await user.save();
+            return res.send('password changed successfully');
+        } catch (err) {
+            return res.status(401).send('incorrect password');
+        }
+    } catch (err) {
+        return res.status(500).send('server error');
+    }
+});
+
 module.exports = router;

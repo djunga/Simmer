@@ -14,6 +14,7 @@ import EditRecipePage from './components/pages/EditRecipePage';
 import MyLibraryPage from './components/pages/MyLibraryPage';
 import HomePage from './components/pages/HomePage';
 import RecipeSearchResultsPage from './components/pages/RecipeSearchResultsPage';
+import MyAccountPage from './components/pages/MyAccountPage';
 import { verifyUserLoggedIn, SERVER_ROOT_URL } from './utils/api';
 
 const useStyles = makeStyles((theme) => ({
@@ -62,6 +63,7 @@ function App() {
                   <Route exact path="/recipe/:id" component={RecipePage} />
                   <Route exact path="/mylibrary" component={MyLibraryPage} />
                   <Route exact path="/search/recipes" component={RecipeSearchResultsPage} />
+                  <Route exact path="/myaccount" component={MyAccountPage} />
                   <Route path="/*">
                     <Redirect to="/" />
                   </Route>

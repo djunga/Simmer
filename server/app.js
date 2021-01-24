@@ -14,6 +14,7 @@ const userRoute = require('./routes/user');
 const editRecipeRoute = require('./routes/editrecipe');
 const recipeRoute = require('./routes/recipe');
 const mylibraryRoute = require('./routes/mylibrary');
+const myaccountRoute = require('./routes/myaccount');
 
 console.log(process.env.MONGODB_URI);
 // connect server to the database
@@ -55,6 +56,7 @@ app.use('/api/user', userRoute);
 app.use('/api/editrecipe', editRecipeRoute);
 app.use('/api/recipe', recipeRoute);
 app.use('/api/mylibrary', mylibraryRoute);
+app.use('/api/myaccount', myaccountRoute);
 
 app.use('/', express.static('build'));
 app.get('*', (req, res) => res.sendFile('index.html', { root: path.join(__dirname, 'build') }));

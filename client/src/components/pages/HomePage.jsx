@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { Box, Grid } from '@material-ui/core';
 import { Text } from 'react-font';
 import HomeCard from '../HomeCard';
+import UserContext from '../../contexts/UserContext';
 import { getRandomRecipes } from '../../utils/api';
 
 const useStyles = makeStyles((theme) => ({
@@ -24,13 +25,16 @@ export default function HomePage(props) {
     const history = useHistory();
     const classes = useStyles();
 
+    const { user, setUser } = useContext(UserContext);
     const [recipesToday, setRecipesToday] = useState([]);
 
     useEffect(() => {
-        getRandomRecipes(3).then(recipes => {
-            setRecipesToday(recipes);
-      }, [recipesToday]);
-    });
+        if(user?.isLoggedIn) {
+            getRandomRecipes(3).then(recipes => {
+                setRecipesToday(recipes);
+            });
+        }
+    },[recipesToday]);
 
     return(
         <Box className={classes.parentBox}>

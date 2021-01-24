@@ -72,6 +72,16 @@ async function getRandomRecipes(count) {
     return recipes.data;
 }
 
+// change password through account settings
+async function changePassword(currentPassword, newPassword) {
+    await axios.put(new URL('/api/auth/changePassword', SERVER_ROOT_URL).href, { currentPassword, newPassword });
+}
+
+// Get the user's email
+async function getEmail() {
+    await axios.get(new URL('/api/auth/changePassword', SERVER_ROOT_URL).href);
+}
+
 export {
     userSignup,
     userLogin,
@@ -85,5 +95,7 @@ export {
     updateRecipe,
     recipeSearch,
     getRandomRecipes,
+    changePassword,
+    getEmail,
     SERVER_ROOT_URL,
 }
