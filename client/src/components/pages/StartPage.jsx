@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import UserContext from '../../contexts/UserContext';
-import { Button, Grid, Paper } from '@material-ui/core';
+import { Button, Grid, Paper, Tooltip } from '@material-ui/core';
 import { Text } from 'react-font'
 
 const useStyles = makeStyles((theme) => ({
@@ -74,10 +74,16 @@ function StartPage(props) {
                     >Log in</Button>
                 </Grid>
                 <Grid item xs={12}>
-                    <Button
-                        onClick={() => loginAsGuest()}
-                        className={classes.guestButton}
-                    >Continue as Guest</Button>
+                <Tooltip title="Coming Soon!" arrow>
+                    <span>
+                        <Button
+                            disabled
+                            onClick={() => loginAsGuest()}
+                            className={classes.guestButton}
+                        >Continue as Guest
+                        </Button>
+                    </span>
+                </Tooltip>
                 </Grid>
             </Grid>
         </Paper>
