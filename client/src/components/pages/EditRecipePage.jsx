@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Button, Grid, Paper, TextField, Typography } from '@material-ui/core';
-import { getRecipe } from '../../utils/api'; 
+import { deleteRecipe, getRecipe } from '../../utils/api'; 
 import RichTextEditor from 'react-rte';
 import ChipInput from 'material-ui-chip-input-without-variants';
 
@@ -151,6 +151,16 @@ export default function EditRecipePage(props) {
         setTags(chips);
     }
 
+    const deleteR = async () => {
+        // deleteRecipe(recipe)
+        // .then(res => {
+        //     console.log("Recipe was deleted.");
+        // }).catch(err => console.log('Error deleting recipe.'));
+        await deleteRecipe(recipe);
+        //history.goBack();
+        history.push('/mylibrary');
+    }   
+
     const previewRecipe = async () => {
         recipe.title = recipeTitleField;
         recipe.prepTime = prepTimeField;
@@ -186,7 +196,6 @@ export default function EditRecipePage(props) {
                             helperText={titleErrorText}
                             label="Title of Recipe"
                             autoFocus={true}
-                            defaultValue="My Recipe"
                             value={recipeTitleField}
                             onChange={handleChangeTitle}
                         />
@@ -285,9 +294,16 @@ export default function EditRecipePage(props) {
                     </Grid>
                 </Grid>
                 <Grid item xs={12}>
+                    <Button
+                        onClick={deleteR}
+                        style={{backgroundColor: '#7efcc8'}}
+                    > 
+                        delete recipe
+                    </Button>
                     <Button onClick={previewRecipe} style={{backgroundColor: '#7efcc8'}}>
                         Preview Recipe
                     </Button>
+                    
                 </Grid>
             </Grid>
 

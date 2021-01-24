@@ -77,9 +77,8 @@ async function changePassword(currentPassword, newPassword) {
     await axios.put(new URL('/api/auth/changePassword', SERVER_ROOT_URL).href, { currentPassword, newPassword });
 }
 
-// Get the user's email
-async function getEmail() {
-    await axios.get(new URL('/api/auth/changePassword', SERVER_ROOT_URL).href);
+async function deleteRecipe(recipe) {
+    await axios.delete(new URL(`/api/recipe/${recipe._id}`, SERVER_ROOT_URL).href, { recipe });
 }
 
 export {
@@ -96,6 +95,6 @@ export {
     recipeSearch,
     getRandomRecipes,
     changePassword,
-    getEmail,
+    deleteRecipe,
     SERVER_ROOT_URL,
 }

@@ -71,4 +71,11 @@ router.put('/:id', async (req, res) => {
     return res.send(recipe);
 });
 
+// DELETE RECIPE
+router.delete('/:id', async (req, res) => {
+    const recipe = await Recipe.findOne({ _id: req.params.id }).lean();
+    await Recipe.deleteOne({  _id: recipe._id });
+    return res.send(recipe);
+});
+
 module.exports = router;

@@ -31,8 +31,6 @@ function ChangePasswordConfirmationModal(props) {
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const [doneDisabled, setDoneDisabled] = useState(true);
-    const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [snackbarText, setSnackbarText] = useState(''); 
 
     /**
      * Determine whether "DONE" button should be enabled
@@ -78,10 +76,6 @@ function ChangePasswordConfirmationModal(props) {
         });
     }
 
-    const handleCloseSnackbar = () => {
-        console.log("Close the snackbar");
-    }
-
     return (
         <Modal
             className={classes.modal}
@@ -95,28 +89,27 @@ function ChangePasswordConfirmationModal(props) {
         >
             <Fade in={open}>
                 <Grid container align="center" style={{ backgroundColor: blueGrey[400], height: '40%', width: '30%' }}>
-                    <Grid justify="center" item xs={12}>
+                    <Grid item xs={12}>
                         <Typography variant="h4">Change Password</Typography>
                     </Grid>
-                    <Grid justify="center" item xs={12}>
+                    <Grid item xs={12}>
                         <TextField value={currentPassword} onChange={(e) => inputHandler(e, setCurrentPassword)} variant="outlined" label="Current Password" />
                     </Grid>
-                    <Grid justify="center" item xs={12}>
+                    <Grid item xs={12}>
                         <TextField value={newPassword} onChange={(e) => inputHandler(e, setNewPassword)} variant="outlined" label="New Password" />
                     </Grid>
-                    <Grid justify="center" item xs={12}>
+                    <Grid item xs={12}>
                         <TextField value={confirmNewPassword} onChange={(e) => inputHandler(e, setConfirmNewPassword)} variant="outlined" label="Confirm New Password" />
                     </Grid>
                     <Grid item xs={1} />
-                    <Grid justify="center" item xs={3}>
+                    <Grid item xs={3}>
                         <Button variant="outlined" onClick={closeModal}>CANCEL</Button>
                     </Grid>
                     <Grid item xs={4} />
-                    <Grid justify="center" item xs={3}>
+                    <Grid item xs={3}>
                         <Button variant="outlined" onClick={submit} disabled={doneDisabled}>DONE</Button>
                     </Grid>
                     <Grid item xs={1} />
-                    <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleCloseSnackbar} message={snackbarText} anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}/>
                 </Grid>
             </Fade>
         </Modal>

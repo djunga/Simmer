@@ -33,6 +33,12 @@ const useStyles = makeStyles((theme) => ({
         width: 60,
         height: 30
     },
+    deleteButton: {
+        backgroundColor: '#0b631a',
+        color: 'white',
+        width: 60,
+        height: 30
+    },
   }));
 
 export default function LibraryCard(props) {
@@ -51,7 +57,7 @@ export default function LibraryCard(props) {
             pathname: `/recipe/${recipe._id}`,
             state: { draftedRecipe: recipe }
         });
-    }
+    } 
 
     return(
         <Paper
