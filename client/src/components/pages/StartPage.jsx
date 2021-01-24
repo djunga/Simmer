@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import UserContext from '../../contexts/UserContext';
-import { Box, Button, Grid, Paper } from '@material-ui/core';
-import Font, { Text } from 'react-font'
+import { Button, Grid, Paper } from '@material-ui/core';
+import { Text } from 'react-font'
 
 const useStyles = makeStyles((theme) => ({
     parentPaper: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: '0 3px 5px 2px rgba(0, 0, 0, .5)',        color: 'white',
         fontSize: '20px',
         height: 48,
-        width: '50%',
+        width: '25%',
         padding: '0 30px',
     },
     logInButton: {
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: '0 3px 5px 2px rgba(0, 0, 0, .5)',        color: 'white',
         fontSize: '20px',
         height: 48,
-        width: '50%',
+        width: '25%',
         padding: '0 30px',
     },
     guestButton: {
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
         color: 'white',
         fontSize: '20px',
         height: 48,
-        width: '50%',
+        width: '25%',
         padding: '0 30px',
     },
   }));
