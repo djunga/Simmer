@@ -65,23 +65,28 @@ function LoginPage(props) {
 
     const submit = () => {
         setOpen(true);
-        setTimeout(closeModal, 1000);
+        setTimeout(closeModal, 3000);
     }
+    
     return(
         <Paper elevation={10} className={classes.parentPaper}>
             <Modal 
                 open={open}
                 className={classes.modal}
             >
-                <Box
+                <Paper
+                    elevation={8}
                     style={{
-                        backgroundColor: 'pink',
-                        height: '300px',
-                        width: '400px'
+                        margin: '20%',
+                        padding: '5%',
+                        justifyContent: 'center',
+                        backgroundColor: '#ffad54',
                     }}
                 >
-                    Log In successful! You will be redirected to a new Doc in about 1 second.
-                </Box>
+                    <Text family="Courgette" style={{ fontSize: 36 }}>
+                        Log In successful! You will be redirected in about 3 seconds.
+                    </Text>
+                </Paper>
             </Modal>
             <Text family="Courgette" style={{ fontSize: 70 }}>
                 Log In
@@ -99,13 +104,13 @@ function LoginPage(props) {
                         label="Password"
                         onChange={handlePassword}
                         value={password}
+                        helperText={loginError}
                     />
                 </Grid>
                 <Grid item xs={6}>
                     <Button
                         onClick={submit}
                         className={classes.loginButton}
-                        helperText={loginError}
                     >
                         Submit
                     </Button>
