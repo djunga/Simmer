@@ -16,6 +16,10 @@ function SearchBarWrapper({ searchType }) {
 
   return (
     <SearchBar
+    style={{
+      marginLeft: '1%',
+      marginTop: '1%',
+  }} 
       value={searchQuery}
       onChange={(e) => setSearchQuery(e)}
       onRequestSearch={handleSearch}
