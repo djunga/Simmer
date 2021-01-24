@@ -1,14 +1,32 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Box, Button, Modal, TextField } from '@material-ui/core';
+import { Box, Button, Grid, Modal, Paper, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { userLogin } from '../../utils/api';
+import { Text } from 'react-font';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    parentPaper: {
+        margin: '20%',
+        padding: '5%',
+        justifyContent: 'center',
+        backgroundColor: '#ffad54',
+        height: '100vh'
+    },
+    loginButton: {
+        background: 'linear-gradient(45deg, #3e8a3a 30%, #74e66e 90%)',
+        border: 0,
+        borderRadius: 3,
+        boxShadow: '0 3px 5px 2px rgba(0, 0, 0, .5)',        color: 'white',
+        fontSize: '20px',
+        height: 48,
+        width: '25%',
+        padding: '0 30px',
     },
 }));
 
@@ -19,12 +37,10 @@ function LoginPage(props) {
     const [open, setOpen] = React.useState(false);
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    const [loginError, setLoginError] = useState(null);
+    const [loginError, setLoginError] = useState("");
   
     const handlePassword = (e) => setPassword(e.target.value);
     const handleEmail = (e) => setEmail(e.target.value);
-    
-
 
     function closeModal() {
         history.push(`/`);
@@ -37,6 +53,7 @@ function LoginPage(props) {
           history.push('/login/success');
         } catch (err) {
           if (err?.response?.status === 401) {
+            alert('Incorrect email or password.');
             setLoginError('Incorrect email or password.');
           } else if (err?.response?.status === 400) {
             setLoginError('Please verify your account.');
@@ -44,14 +61,14 @@ function LoginPage(props) {
             setLoginError('Error logging in. Please try again later.')
           }
         }
-      }
+    }
 
     const submit = () => {
         setOpen(true);
         setTimeout(closeModal, 1000);
     }
     return(
-        <div style={{ backgroundColor: '#ffd5a8', height: '100vh' }}>
+        <Paper elevation={10} className={classes.parentPaper}>
             <Modal 
                 open={open}
                 className={classes.modal}
@@ -66,29 +83,35 @@ function LoginPage(props) {
                     Log In successful! You will be redirected to a new Doc in about 1 second.
                 </Box>
             </Modal>
-            <h1>Log In</h1>
-            <TextField
-                label="Email"
-                onChange={handleEmail}
-                value={email}
-            />
-            <TextField
-                label="Password"
-                helperText="Enter your password."
-                onChange={handlePassword}
-                value={password}
-            />
-            <Button
-                onClick={submit}
-                style={{
-                    backgroundColor: 'red',
-                }}
-            >
-                Submit
-            </Button>
-
-
-        </div>
+            <Text family="Courgette" style={{ fontSize: 70 }}>
+                Log In
+            </Text>
+            <Grid container direction="column" alignContent="center" spacing={1}>
+                <Grid item xs={6}>
+                    <TextField
+                        label="Email"
+                        onChange={handleEmail}
+                        value={email}
+                    />
+                </Grid>
+                <Grid item xs={6}>
+                    <TextField
+                        label="Password"
+                        onChange={handlePassword}
+                        value={password}
+                    />
+                </Grid>
+                <Grid item xs={6}>
+                    <Button
+                        onClick={submit}
+                        className={classes.loginButton}
+                        helperText={loginError}
+                    >
+                        Submit
+                    </Button>
+                </Grid>
+            </Grid>
+        </Paper>
     );
 }
 

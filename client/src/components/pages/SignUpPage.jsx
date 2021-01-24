@@ -85,9 +85,6 @@ function SignUpPage(props) {
             setOpen(true);
             setTimeout(closeModal, 3000);
         }
-        // else{
-        //     setErrorText("Please fix the errors above.");
-        // }
     }
     
     return(
